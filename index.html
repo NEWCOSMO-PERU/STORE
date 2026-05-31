@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NewCosmo Store</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<header>
+    <div class="logo">🚀 NewCosmo Store</div>
+
+    <nav>
+        <a href="#productos">Productos</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <button class="cart-btn" onclick="toggleCart()">
+        🛒 <span id="cart-count">0</span>
+    </button>
+</header>
+
+<section class="hero">
+    <h1>Accesorios Tecnológicos Premium</h1>
+    <p>Los mejores accesorios para potenciar tu experiencia digital.</p>
+</section>
+
+<section id="productos" class="productos">
+    <h2>Productos Destacados</h2>
+
+    <div class="grid" id="productos-grid"></div>
+</section>
+
+<div class="cart-panel" id="cart-panel">
+
+    <div class="cart-header">
+        <h3>Tu Carrito</h3>
+        <button onclick="toggleCart()">✖</button>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-footer">
+        <h3>Total: S/ <span id="cart-total">0</span></h3>
+
+        <button class="checkout-btn" onclick="enviarWhatsapp()">
+            Finalizar Compra
+        </button>
+    </div>
+
+</div>
+
+<section id="contacto" class="contacto">
+    <h2>Contacto</h2>
+    <p>WhatsApp: 949150700</p>
+</section>
+
+<a
+class="whatsapp"
+href="https://wa.me/51949150700"
+target="_blank">
+💬
+</a>
+
+<script src="script.js"></script>
+
+</body>
+</html>

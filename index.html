@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Estilos personalizados y animaciones */
         body { font-family: 'Inter', sans-serif; }
         .cart-open { transform: translateX(0%); }
         .cart-closed { transform: translateX(100%); }
@@ -63,8 +62,7 @@
 
     <main class="max-w-7xl mx-auto px-4 py-8">
         <h2 class="text-2xl font-bold mb-6" id="seccionTitulo">Nuestros Productos</h2>
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            </div>
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
     </main>
 
     <section class="bg-gray-100 py-12">
@@ -82,7 +80,7 @@
                     <p class="mt-4 font-bold">- Carlos G.</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow">
-                    <div class="text-yellow-400 mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                    <div class="text-yellow-400 mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-half-stroke"></i></div>
                     <p class="text-gray-600">"La web funciona perfecto en mi celular, muy fácil de comprar."</p>
                     <p class="mt-4 font-bold">- Andrea V.</p>
                 </div>
@@ -106,7 +104,7 @@
                     ¿Cuáles son los métodos de pago? <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div id="faq2" class="faq-answer px-4 pb-3 text-gray-600 text-sm">
-                    El pago se coordina directamente por WhatsApp (Transferencia, Yape, Plin o Efectivo contra entrega dependiendo de tu zona).
+                    Aceptamos efectivo contra entrega, transferencia bancaria y pagos digitales mediante código QR (Yape o Plin).
                 </div>
             </div>
         </div>
@@ -122,19 +120,32 @@
             <button onclick="toggleCart()" class="text-2xl">&times;</button>
         </div>
         
-        <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-4">
-            </div>
+        <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-4"></div>
 
-        <div class="p-4 border-t bg-gray-50">
+        <div class="p-4 border-t bg-gray-50 overflow-y-auto max-h-[60vh]">
             <div class="flex mb-4">
                 <input type="text" id="couponCode" placeholder="Código de cupón" class="w-full px-3 py-2 border rounded-l focus:outline-none">
                 <button onclick="applyCoupon()" class="bg-gray-800 text-white px-4 py-2 rounded-r hover:bg-gray-700">Aplicar</button>
             </div>
-            <p id="couponMessage" class="text-sm mb-2 text-green-600 font-semibold hidden"></p>
+            <p id="couponMessage" class="text-sm mb-4 font-semibold hidden"></p>
             
-            <div class="flex justify-between text-lg font-bold mb-4">
+            <div class="mb-4 border-t pt-2">
+                <label class="block text-sm font-bold text-gray-700 mb-1">Medio de Pago:</label>
+                <select id="paymentMethod" onchange="handlePaymentChange()" class="w-full px-3 py-2 border rounded bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="Efectivo / Transferencia">Efectivo o Transferencia</option>
+                    <option value="QR Yape / Plin">QR (Yape / Plin)</option>
+                </select>
+                
+                <div id="qrContainer" class="hidden mt-3 flex flex-col items-center border p-3 rounded-lg bg-white shadow-inner">
+                    <p class="text-xs text-gray-500 mb-2 text-center font-medium">Escanea aquí con Yape o Plin para realizar tu pago:</p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=YAPE_NEWCOSMO_PREMIUM" alt="QR Yape Plin" class="w-36 h-36 object-contain border p-1 rounded bg-white">
+                    <span class="text-xs text-indigo-600 mt-2 font-bold">Titular: NewCosmo Store</span>
+                </div>
+            </div>
+            
+            <div class="flex justify-between text-lg font-bold mb-4 border-t pt-2">
                 <span>Total:</span>
-                <span id="cartTotal">$0.00</span>
+                <span id="cartTotal">S/ 0.00</span>
             </div>
             <button onclick="enviarWhatsApp()" class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition flex justify-center items-center gap-2">
                 <i class="fa-brands fa-whatsapp text-xl"></i> Pedir por WhatsApp
@@ -145,29 +156,33 @@
     <div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40" onclick="toggleCart()"></div>
 
     <script>
-        // 1. BASE DE DATOS DE PRODUCTOS
+        // CONFIGURACIÓN GLOBAL
+        const TELEFONO_WHATSAPP = "51999999999"; // Cambia este número por el tuyo
+
+        // 1. BASE DE DATOS DE PRODUCTOS (PRECIOS EN SOLES)
         const productos = [
-            { id: 1, nombre: "Auriculares Inalámbricos Pro", precio: 59.99, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" },
+            { id: 1, nombre: "Auriculares Inalámbricos Pro", precio: 59.90, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" },
             { id: 2, nombre: "Smartwatch Deportivo", precio: 89.50, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80" },
-            { id: 3, nombre: "Zapatillas Urbanas", precio: 45.00, categoria: "Moda", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80" },
-            { id: 4, nombre: "Gafas de Sol Premium", precio: 25.99, categoria: "Moda", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&q=80" },
-            { id: 5, nombre: "Lámpara Led Inteligente", precio: 34.00, categoria: "Hogar", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&q=80" },
-            { id: 6, nombre: "Mochila Antirrobo", precio: 49.99, categoria: "Moda", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80" }
+            { id: 3, nombre: "Zapatillas Urbanas", precio: 145.00, categoria: "Moda", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80" },
+            { id: 4, nombre: "Gafas de Sol Premium", precio: 65.90, categoria: "Moda", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&q=80" },
+            { id: 5, nombre: "Lámpara Led Inteligente", precio: 44.00, categoria: "Hogar", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&q=80" },
+            { id: 6, nombre: "Mochila Antirrobo", precio: 79.90, categoria: "Moda", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80" }
         ];
 
-        // 2. ESTADO DE LA APP (LocalStorage)
+        // 2. ESTADO DE LA APP
         let carrito = JSON.parse(localStorage.getItem('newcosmo_cart')) || [];
         let favoritos = JSON.parse(localStorage.getItem('newcosmo_favs')) || [];
-        let descuentoAplicado = 0; // Porcentaje de descuento
+        let descuentoAplicado = 0; 
+        let filtroActual = 'Todos';
 
         // 3. RENDERIZADO DE PRODUCTOS
         function renderProducts(filtro = 'Todos', busqueda = '') {
+            filtroActual = filtro;
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
             
             let productosFiltrados = productos;
 
-            // Filtrar por categoría
             if (filtro !== 'Todos' && filtro !== 'Favoritos') {
                 productosFiltrados = productos.filter(p => p.categoria === filtro);
                 document.getElementById('seccionTitulo').innerText = `Categoría: ${filtro}`;
@@ -178,7 +193,6 @@
                 document.getElementById('seccionTitulo').innerText = `Todos los Productos`;
             }
 
-            // Filtrar por búsqueda
             if (busqueda) {
                 productosFiltrados = productosFiltrados.filter(p => p.nombre.toLowerCase().includes(busqueda.toLowerCase()));
             }
@@ -202,7 +216,7 @@
                             <span class="text-xs text-indigo-500 font-bold uppercase">${prod.categoria}</span>
                             <h3 class="font-bold text-gray-800 mt-1 mb-2 truncate">${prod.nombre}</h3>
                             <div class="flex justify-between items-center mt-4">
-                                <span class="text-xl font-black text-gray-900">$${prod.precio.toFixed(2)}</span>
+                                <span class="text-xl font-black text-gray-900">S/ ${prod.precio.toFixed(2)}</span>
                                 <button onclick="agregarAlCarrito(${prod.id})" class="bg-indigo-600 text-white px-3 py-2 rounded shadow hover:bg-indigo-700 transition">
                                     <i class="fa-solid fa-cart-plus"></i>
                                 </button>
@@ -227,7 +241,7 @@
             }
             guardarDatos();
             actualizarCarrito();
-            toggleCart(true); // Abrir carrito
+            toggleCart(true); 
         }
 
         function modificarCantidad(id, delta) {
@@ -258,7 +272,7 @@
                         <img src="${item.img}" class="w-16 h-16 object-cover rounded">
                         <div class="flex-1">
                             <h4 class="font-bold text-sm text-gray-800 line-clamp-2">${item.nombre}</h4>
-                            <div class="text-indigo-600 font-bold">$${item.precio.toFixed(2)}</div>
+                            <div class="text-indigo-600 font-bold">S/ ${item.precio.toFixed(2)}</div>
                             <div class="flex items-center mt-2 border rounded w-fit">
                                 <button onclick="modificarCantidad(${item.id}, -1)" class="px-2 py-1 bg-gray-100 hover:bg-gray-200">-</button>
                                 <span class="px-3 text-sm">${item.cantidad}</span>
@@ -269,9 +283,8 @@
                 `;
             });
 
-            // Aplicar descuento si existe
             const total = subtotal - (subtotal * descuentoAplicado);
-            document.getElementById('cartTotal').innerText = `$${total.toFixed(2)}`;
+            document.getElementById('cartTotal').innerText = `S/ ${total.toFixed(2)}`;
             actualizarContadores();
         }
 
@@ -291,7 +304,18 @@
             }
         }
 
-        // 5. LÓGICA DE FAVORITOS
+        // 5. CONTROLADOR DEL CÓDIGO QR VISUAL
+        function handlePaymentChange() {
+            const method = document.getElementById('paymentMethod').value;
+            const qrContainer = document.getElementById('qrContainer');
+            if (method === 'QR Yape / Plin') {
+                qrContainer.classList.remove('hidden');
+            } else {
+                qrContainer.classList.add('hidden');
+            }
+        }
+
+        // 6. LÓGICA DE FAVORITOS
         function toggleFavorito(id) {
             if (favoritos.includes(id)) {
                 favoritos = favoritos.filter(favId => favId !== id);
@@ -299,14 +323,14 @@
                 favoritos.push(id);
             }
             guardarDatos();
-            renderProducts(document.getElementById('seccionTitulo').innerText.includes('Categoría') ? document.getElementById('seccionTitulo').innerText.split(': ')[1] : 'Todos');
+            renderProducts(filtroActual);
         }
 
         function filtrarFavoritos() {
             renderProducts('Favoritos');
         }
 
-        // 6. UTILIDADES VARIAS
+        // 7. UTILIDADES VARIAS
         function guardarDatos() {
             localStorage.setItem('newcosmo_cart', JSON.stringify(carrito));
             localStorage.setItem('newcosmo_favs', JSON.stringify(favoritos));
@@ -318,40 +342,34 @@
             document.getElementById('favCount').innerText = favoritos.length;
         }
 
-        // Buscador
         document.getElementById('searchInput').addEventListener('input', (e) => {
             renderProducts('Todos', e.target.value);
         });
 
-        // Cupones
         function applyCoupon() {
             const code = document.getElementById('couponCode').value.toUpperCase();
             const msg = document.getElementById('couponMessage');
             if (code === 'COSMO20') {
-                descuentoAplicado = 0.20; // 20%
+                descuentoAplicado = 0.20; 
                 msg.innerText = "¡Cupón aplicado! -20%";
-                msg.classList.remove('hidden');
+                msg.classList.remove('text-red-500', 'hidden');
+                msg.classList.add('text-green-600');
             } else {
                 descuentoAplicado = 0;
                 msg.innerText = "Cupón inválido.";
-                msg.classList.remove('text-green-600');
+                msg.classList.remove('text-green-600', 'hidden');
                 msg.classList.add('text-red-500');
-                msg.classList.remove('hidden');
             }
             actualizarCarrito();
         }
 
-        // FAQ Toggle
         function toggleFaq(id) {
             const el = document.getElementById(id);
             el.classList.toggle('open');
         }
 
-        // 7. CONTADOR DE OFERTAS
         function iniciarContador() {
-            // Establecer fecha de fin (24 horas desde que carga la página para el ejemplo)
             let countDownDate = new Date().getTime() + (24 * 60 * 60 * 1000);
-
             const x = setInterval(function() {
                 const now = new Date().getTime();
                 const distance = countDownDate - now;
@@ -371,45 +389,48 @@
             }, 1000);
         }
 
-        // 8. PEDIDO POR WHATSAPP
+        // 8. PEDIDO POR WHATSAPP ADAPTADO
         function enviarWhatsApp() {
             if (carrito.length === 0) {
                 alert("Agrega productos al carrito primero.");
                 return;
             }
 
-            // *** CAMBIA ESTE NÚMERO POR EL TUYO (Formato internacional sin el "+") ***
-            const telefono = "51999999999"; 
-            
+            const metodoPagoSeleccionado = document.getElementById('paymentMethod').value;
             let texto = "👋 Hola *NewCosmo Store*, quiero realizar el siguiente pedido:%0A%0A";
             let subtotal = 0;
 
             carrito.forEach(item => {
                 const totalItem = item.precio * item.cantidad;
                 subtotal += totalItem;
-                texto += `▪️ ${item.cantidad}x ${item.nombre} - $${totalItem.toFixed(2)}%0A`;
+                texto += `▪️ ${item.cantidad}x ${item.nombre} - S/ ${totalItem.toFixed(2)}%0A`;
             });
 
-            texto += `%0A*Subtotal:* $${subtotal.toFixed(2)}`;
+            texto += `%0A*Subtotal:* S/ ${subtotal.toFixed(2)}`;
             
             if (descuentoAplicado > 0) {
                 const ahorro = subtotal * descuentoAplicado;
-                texto += `%0A*Descuento (Cupón):* -$${ahorro.toFixed(2)}`;
+                texto += `%0A*Descuento (Cupón):* -S/ ${ahorro.toFixed(2)}`;
                 subtotal = subtotal - ahorro;
             }
 
-            texto += `%0A*TOTAL A PAGAR: $${subtotal.toFixed(2)}*%0A%0A`;
-            texto += "¿Me confirman el método de pago y el envío?";
+            texto += `%0A*TOTAL A PAGAR: S/ ${subtotal.toFixed(2)}*%0A`;
+            texto += `*Medio de Pago elegido:* ${metodoPagoSeleccionado}%0A%0A`;
 
-            const url = `https://wa.me/${telefono}?text=${texto}`;
+            if (metodoPagoSeleccionado === "QR Yape / Plin") {
+                texto += "Ya escaneé el código QR de la web. ¡Te envío la captura del comprobante a continuación! 👍";
+            } else {
+                texto += "¿Me confirman los datos de cuenta o dirección de envío?";
+            }
+
+            const url = `https://wa.me/${TELEFONO_WHATSAPP}?text=${texto}`;
             window.open(url, '_blank');
         }
 
-        // Inicializar la tienda
+        // Inicializar
         renderProducts();
         iniciarContador();
         actualizarContadores();
-        
     </script>
 </body>
 </html>

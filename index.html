@@ -3,252 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>NewCosmo Store</title>
-
+<title>NewCosmo Store Premium</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#0f172a;
-color:white;
-}
-
-header{
-background:#111827;
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-position:sticky;
-top:0;
-z-index:100;
-}
-
-.logo{
-font-size:28px;
-font-weight:700;
-}
-
-.cart-icon{
-cursor:pointer;
-font-size:20px;
-background:#2563eb;
-padding:10px 15px;
-border-radius:10px;
-}
-
-.hero{
-padding:80px 20px;
-text-align:center;
-background:linear-gradient(135deg,#2563eb,#7c3aed);
-}
-
-.hero h1{
-font-size:3rem;
-margin-bottom:15px;
-}
-
-.hero p{
-font-size:18px;
-}
-
-.container{
-max-width:1200px;
-margin:auto;
-padding:40px 20px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.card{
-background:#1e293b;
-border-radius:15px;
-overflow:hidden;
-}
-
-.card img{
-width:100%;
-height:220px;
-object-fit:cover;
-}
-
-.card-content{
-padding:15px;
-}
-
-.card h3{
-margin-bottom:10px;
-}
-
-.price{
-font-size:24px;
-font-weight:bold;
-color:#22c55e;
-margin:10px 0;
-}
-
-.btn{
-width:100%;
-padding:12px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-background:#2563eb;
-color:white;
-font-size:16px;
-}
-
-.cart{
-position:fixed;
-top:0;
-right:-420px;
-width:400px;
-height:100%;
-background:#111827;
-transition:.4s;
-overflow:auto;
-z-index:999;
-}
-
-.cart.active{
-right:0;
-}
-
-.cart-header{
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid #333;
-}
-
-.close{
-cursor:pointer;
-font-size:25px;
-}
-
-.cart-items{
-padding:15px;
-}
-
-.item{
-border-bottom:1px solid #333;
-padding:15px 0;
-}
-
-.qty{
-display:flex;
-gap:10px;
-align-items:center;
-margin-top:10px;
-}
-
-.qty button{
-width:30px;
-height:30px;
-border:none;
-background:#2563eb;
-color:white;
-cursor:pointer;
-border-radius:5px;
-}
-
-.remove{
-background:#dc2626;
-padding:8px;
-margin-top:10px;
-display:inline-block;
-cursor:pointer;
-border-radius:5px;
-}
-
-.total{
-padding:20px;
-font-size:24px;
-font-weight:bold;
-}
-
-.checkout{
-padding:20px;
-}
-
-input,select,textarea{
-width:100%;
-padding:12px;
-margin-bottom:10px;
-border:none;
-border-radius:8px;
-}
-
-.payment{
-background:#1e293b;
-padding:20px;
-margin-top:20px;
-border-radius:10px;
-}
-
-.payment img{
-width:220px;
-max-width:100%;
-display:block;
-margin:auto;
-}
-
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:28px;
-text-decoration:none;
-color:white;
-}
-
-@media(max-width:768px){
-
-.hero h1{
-font-size:2rem;
-}
-
-.cart{
-width:100%;
-}
-
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#0f172a;color:#fff}
+header{background:#111827;padding:20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.logo{font-size:28px;font-weight:700}
+.cart-icon{background:#2563eb;padding:10px 15px;border-radius:10px;cursor:pointer}
+.hero{padding:80px 20px;text-align:center;background:linear-gradient(135deg,#2563eb,#7c3aed)}
+.container{max-width:1200px;margin:auto;padding:30px 20px}
+.search{width:100%;margin-bottom:20px}
+.beneficios{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin:25px 0}
+.beneficios div{background:#1e293b;padding:15px;border-radius:12px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.card{background:#1e293b;border-radius:15px;overflow:hidden;position:relative;transition:.3s}
+.card:hover{transform:translateY(-6px)}
+.card img{width:100%;height:220px;object-fit:cover}
+.badge{position:absolute;top:10px;left:10px;background:#dc2626;padding:5px 10px;border-radius:6px}
+.card-content{padding:15px}
+.price{font-size:24px;color:#22c55e;font-weight:bold}
+.btn{width:100%;padding:12px;border:none;border-radius:10px;background:#2563eb;color:white;cursor:pointer}
+.btn:hover{opacity:.9}
+.cart{position:fixed;right:-420px;top:0;width:400px;height:100%;background:#111827;overflow:auto;transition:.4s;z-index:999}
+.cart.active{right:0}
+.cart-header,.total,.checkout{padding:20px}
+.cart-items{padding:15px}
+.item{padding:15px 0;border-bottom:1px solid #333}
+.qty button{width:30px;height:30px}
+input,select,textarea{width:100%;padding:12px;margin-bottom:10px;border:none;border-radius:8px}
+.payment{background:#1e293b;padding:15px;border-radius:10px}
+footer{background:#111827;text-align:center;padding:30px;margin-top:40px}
+@media(max-width:768px){.cart{width:100%}}
 </style>
 </head>
 <body>
 
 <header>
-
-<div class="logo">
-🚀 NewCosmo Store
-</div>
-
-<div class="cart-icon" onclick="toggleCart()">
-🛒 <span id="count">0</span>
-</div>
-
+<div class="logo">🚀 NewCosmo Store</div>
+<div class="cart-icon" onclick="toggleCart()">🛒 <span id="count">0</span></div>
 </header>
 
 <section class="hero">
@@ -258,31 +51,26 @@ width:100%;
 
 <div class="container">
 
-<div class="grid" id="products"></div>
+<input class="search" id="buscar" placeholder="Buscar producto..." onkeyup="renderProductos()">
 
+<div class="beneficios">
+<div>🚚 Envíos a todo Perú</div>
+<div>🔒 Pago Seguro</div>
+<div>⚡ Atención Rápida</div>
+<div>⭐ Garantía</div>
+</div>
+
+<div class="grid" id="products"></div>
 </div>
 
 <div class="cart" id="cart">
-
-<div class="cart-header">
-<h2>Carrito</h2>
-<div class="close" onclick="toggleCart()">✖</div>
-</div>
-
+<div class="cart-header"><h2>Carrito</h2><button onclick="toggleCart()">✖</button></div>
 <div class="cart-items" id="cartItems"></div>
-
-<div class="total">
-Total: S/ <span id="total">0</span>
-</div>
+<div class="total">Total: S/ <span id="total">0</span></div>
 
 <div class="checkout">
-
-<h3>Datos del Cliente</h3>
-
-<input type="text" id="nombre" placeholder="Nombre completo">
-
-<input type="tel" id="telefono" placeholder="Teléfono">
-
+<input id="nombre" placeholder="Nombre completo">
+<input id="telefono" placeholder="Teléfono">
 <textarea id="direccion" placeholder="Dirección"></textarea>
 
 <select id="metodo">
@@ -291,273 +79,101 @@ Total: S/ <span id="total">0</span>
 </select>
 
 <div class="payment">
-
 <h3>Realiza tu pago</h3>
-
-<p>Escanea el QR y luego envía la captura por WhatsApp.</p>
-
-<!-- Reemplaza por tu QR -->
-<img src="https://via.placeholder.com/220x220.png?text=QR+YAPE" alt="QR">
-
+<img src="https://via.placeholder.com/220x220.png?text=QR+YAPE">
 </div>
 
 <br>
-
-<button class="btn" onclick="enviarPedido()">
-Enviar Pedido por WhatsApp
-</button>
-
+<button class="btn" onclick="enviarPedido()">Enviar Pedido por WhatsApp</button>
 </div>
-
 </div>
-
-<a class="whatsapp" href="https://wa.me/51949150700" target="_blank">
-💬
-</a>
 
 <script>
-
-const productos = [
-
-{
-id:1,
-nombre:"Audífonos Bluetooth",
-precio:89,
-imagen:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800"
-},
-
-{
-id:2,
-nombre:"Smartwatch Deportivo",
-precio:149,
-imagen:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"
-},
-
-{
-id:3,
-nombre:"Power Bank 20000mAh",
-precio:129,
-imagen:"https://images.unsplash.com/photo-1609592806787-3d9d31d7a0a1?w=800"
-},
-
-{
-id:4,
-nombre:"Mouse Gamer RGB",
-precio:99,
-imagen:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800"
-},
-
-{
-id:5,
-nombre:"Teclado Mecánico",
-precio:199,
-imagen:"https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=800"
-},
-
-{
-id:6,
-nombre:"Cargador USB-C",
-precio:49,
-imagen:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=800"
-}
-
+const productos=[
+{id:1,nombre:"Audífonos Bluetooth",precio:89,imagen:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800"},
+{id:2,nombre:"Smartwatch Deportivo",precio:149,imagen:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"},
+{id:3,nombre:"Power Bank 20000mAh",precio:129,imagen:"https://images.unsplash.com/photo-1609592806787-3d9d31d7a0a1?w=800"},
+{id:4,nombre:"Mouse Gamer RGB",precio:99,imagen:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800"}
 ];
 
-let carrito=[];
+let carrito=JSON.parse(localStorage.getItem("carrito")||"[]");
 
-const products=document.getElementById("products");
-
-productos.forEach(p=>{
-
-products.innerHTML+=`
-
-<div class="card">
-
-<img src="${p.imagen}">
-
-<div class="card-content">
-
-<h3>${p.nombre}</h3>
-
-<div class="price">
-S/ ${p.precio}
-</div>
-
-<button class="btn" onclick="addCart(${p.id})">
-Agregar al carrito
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-function addCart(id){
-
-let item=carrito.find(x=>x.id===id);
-
-if(item){
-
-item.cantidad++;
-
-}else{
-
-let producto=productos.find(x=>x.id===id);
-
-carrito.push({...producto,cantidad:1});
-
+function guardarCarrito(){
+localStorage.setItem("carrito",JSON.stringify(carrito));
 }
 
-renderCart();
+function renderProductos(){
+const texto=document.getElementById("buscar").value.toLowerCase();
+let html="";
+productos.filter(p=>p.nombre.toLowerCase().includes(texto)).forEach(p=>{
+html+=`
+<div class="card">
+<div class="badge">🔥 Oferta</div>
+<img src="${p.imagen}">
+<div class="card-content">
+<h3>${p.nombre}</h3>
+<div class="price">S/ ${p.precio}</div>
+<button class="btn" onclick="addCart(${p.id})">Agregar al carrito</button>
+</div>
+</div>`;
+});
+document.getElementById("products").innerHTML=html;
+}
 
+function addCart(id){
+let item=carrito.find(x=>x.id===id);
+if(item)item.cantidad++;
+else carrito.push({...productos.find(x=>x.id===id),cantidad:1});
+guardarCarrito();renderCart();
 }
 
 function renderCart(){
-
-let html="";
-let total=0;
-let cantidad=0;
-
+let total=0,cantidad=0,html="";
 carrito.forEach(item=>{
-
-total+=item.precio*item.cantidad;
+const sub=item.precio*item.cantidad;
+total+=sub;
 cantidad+=item.cantidad;
-
-html+=`
-
-<div class="item">
-
-<b>${item.nombre}</b>
-
-<br>
-
-S/ ${item.precio}
-
-<div class="qty">
-
+html+=`<div class="item"><b>${item.nombre}</b><br>
+Precio: S/${item.precio}<br>
+Subtotal: S/${sub}<br>
 <button onclick="menos(${item.id})">-</button>
-
 ${item.cantidad}
-
 <button onclick="mas(${item.id})">+</button>
-
-</div>
-
-<div class="remove" onclick="eliminar(${item.id})">
-Eliminar
-</div>
-
-</div>
-
-`;
-
+<button onclick="eliminar(${item.id})">Eliminar</button>
+</div>`;
 });
-
 document.getElementById("cartItems").innerHTML=html;
 document.getElementById("total").innerText=total;
 document.getElementById("count").innerText=cantidad;
-
 }
 
-function mas(id){
-
-carrito.find(x=>x.id===id).cantidad++;
-renderCart();
-
-}
-
-function menos(id){
-
-let item=carrito.find(x=>x.id===id);
-
-if(item.cantidad>1){
-item.cantidad--;
-}else{
-carrito=carrito.filter(x=>x.id!==id);
-}
-
-renderCart();
-
-}
-
-function eliminar(id){
-
-carrito=carrito.filter(x=>x.id!==id);
-renderCart();
-
-}
-
-function toggleCart(){
-
-document.getElementById("cart")
-.classList.toggle("active");
-
-}
+function mas(id){carrito.find(x=>x.id===id).cantidad++;guardarCarrito();renderCart();}
+function menos(id){let i=carrito.find(x=>x.id===id);if(i.cantidad>1)i.cantidad--;else eliminar(id);guardarCarrito();renderCart();}
+function eliminar(id){carrito=carrito.filter(x=>x.id!==id);guardarCarrito();renderCart();}
+function toggleCart(){document.getElementById("cart").classList.toggle("active");}
 
 function enviarPedido(){
+if(carrito.length===0)return alert("Agrega productos");
+if(!confirm("¿Deseas enviar el pedido?")) return;
 
-if(carrito.length===0){
-
-alert("Agrega productos");
-
-return;
-
-}
-
-const nombre=document.getElementById("nombre").value;
-const telefono=document.getElementById("telefono").value;
-const direccion=document.getElementById("direccion").value;
-const metodo=document.getElementById("metodo").value;
-
-let mensaje=
-"🛒 *NUEVO PEDIDO - NEWCOSMO STORE*%0A%0A";
-
-mensaje +=
-"👤 Cliente: "+nombre+"%0A";
-
-mensaje +=
-"📞 Teléfono: "+telefono+"%0A";
-
-mensaje +=
-"📍 Dirección: "+direccion+"%0A";
-
-mensaje +=
-"💳 Método: "+metodo+"%0A%0A";
-
-mensaje +=
-"📦 PRODUCTOS:%0A";
-
+const pedido=Math.floor(Math.random()*100000);
 let total=0;
-
-carrito.forEach(item=>{
-
-mensaje +=
-"- "+item.nombre+
-" x"+item.cantidad+
-" = S/"+(item.precio*item.cantidad)+
-"%0A";
-
-total+=item.precio*item.cantidad;
-
-});
-
-mensaje +=
-"%0A💰 TOTAL: S/"+total;
-
-mensaje +=
-"%0A%0A📸 Adjuntaré la captura de pago.";
-
-window.open(
-"https://wa.me/51949150700?text="+mensaje,
-"_blank"
-);
-
+let msg=`🧾 Pedido #${pedido}%0A%0A`;
+carrito.forEach(i=>{msg+=`${i.nombre} x${i.cantidad}%0A`; total+=i.precio*i.cantidad;});
+msg+=`%0ATotal: S/${total}`;
+window.open("https://wa.me/51949150700?text="+msg,"_blank");
 }
 
+renderProductos();
+renderCart();
 </script>
+
+<footer>
+<h3>NewCosmo Store</h3>
+<p>Tecnología y accesorios premium</p>
+<p>WhatsApp: +51 949 150 700</p>
+<p>© 2026 Todos los derechos reservados</p>
+</footer>
 
 </body>
 </html>

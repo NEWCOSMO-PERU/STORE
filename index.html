@@ -2,178 +2,133 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NewCosmo Store Premium</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Tienda de tecnología y accesorios premium">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
-body{background:#0f172a;color:#fff}
-header{background:#111827;padding:20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-.logo{font-size:28px;font-weight:700}
-.cart-icon{background:#2563eb;padding:10px 15px;border-radius:10px;cursor:pointer}
-.hero{padding:80px 20px;text-align:center;background:linear-gradient(135deg,#2563eb,#7c3aed)}
-.container{max-width:1200px;margin:auto;padding:30px 20px}
-.search{width:100%;margin-bottom:20px}
-.beneficios{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin:25px 0}
-.beneficios div{background:#1e293b;padding:15px;border-radius:12px;text-align:center}
+body{font-family:Arial,sans-serif;margin:0;background:#0f172a;color:#fff}
+header{background:#111827;padding:15px;display:flex;justify-content:space-between;position:sticky;top:0}
+.hero{padding:60px 20px;text-align:center;background:linear-gradient(135deg,#2563eb,#7c3aed)}
+.container{max-width:1200px;margin:auto;padding:20px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+input,select,button{padding:10px;border-radius:8px;border:none}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.card{background:#1e293b;border-radius:15px;overflow:hidden;position:relative;transition:.3s}
-.card:hover{transform:translateY(-6px)}
-.card img{width:100%;height:220px;object-fit:cover}
-.badge{position:absolute;top:10px;left:10px;background:#dc2626;padding:5px 10px;border-radius:6px}
-.card-content{padding:15px}
-.price{font-size:24px;color:#22c55e;font-weight:bold}
-.btn{width:100%;padding:12px;border:none;border-radius:10px;background:#2563eb;color:white;cursor:pointer}
-.btn:hover{opacity:.9}
-.cart{position:fixed;right:-420px;top:0;width:400px;height:100%;background:#111827;overflow:auto;transition:.4s;z-index:999}
-.cart.active{right:0}
-.cart-header,.total,.checkout{padding:20px}
-.cart-items{padding:15px}
-.item{padding:15px 0;border-bottom:1px solid #333}
-.qty button{width:30px;height:30px}
-input,select,textarea{width:100%;padding:12px;margin-bottom:10px;border:none;border-radius:8px}
-.payment{background:#1e293b;padding:15px;border-radius:10px}
-footer{background:#111827;text-align:center;padding:30px;margin-top:40px}
-@media(max-width:768px){.cart{width:100%}}
+.card{background:#1e293b;border-radius:12px;overflow:hidden}
+.card img{width:100%;height:200px;object-fit:cover}
+.card div{padding:15px}
+.price{color:#22c55e;font-size:22px;font-weight:bold}
+footer{background:#111827;padding:30px;text-align:center;margin-top:40px}
+.badge{background:red;padding:4px 8px;border-radius:5px}
+.faq details{background:#1e293b;margin:10px 0;padding:10px;border-radius:8px}
 </style>
 </head>
 <body>
-
 <header>
-<div class="logo">🚀 NewCosmo Store</div>
-<div class="cart-icon" onclick="toggleCart()">🛒 <span id="count">0</span></div>
+<h2>🚀 NewCosmo Store</h2>
+<button onclick="toggleTheme()">🌙 Tema</button>
 </header>
 
 <section class="hero">
 <h1>Accesorios Tecnológicos Premium</h1>
-<p>Compra fácil y paga con Yape o Plin</p>
+<p>Ofertas exclusivas y pago por WhatsApp</p>
+<h3 id="countdown"></h3>
 </section>
 
 <div class="container">
+<div style="background:#1e293b;padding:15px;border-radius:10px">🚚 Envío gratis desde S/200</div>
 
-<input class="search" id="buscar" placeholder="Buscar producto..." onkeyup="renderProductos()">
-
-<div class="beneficios">
-<div>🚚 Envíos a todo Perú</div>
-<div>🔒 Pago Seguro</div>
-<div>⚡ Atención Rápida</div>
-<div>⭐ Garantía</div>
-</div>
-
-<div class="grid" id="products"></div>
-</div>
-
-<div class="cart" id="cart">
-<div class="cart-header"><h2>Carrito</h2><button onclick="toggleCart()">✖</button></div>
-<div class="cart-items" id="cartItems"></div>
-<div class="total">Total: S/ <span id="total">0</span></div>
-
-<div class="checkout">
-<input id="nombre" placeholder="Nombre completo">
-<input id="telefono" placeholder="Teléfono">
-<textarea id="direccion" placeholder="Dirección"></textarea>
-
-<select id="metodo">
-<option>Yape</option>
-<option>Plin</option>
+<div class="toolbar">
+<input id="search" placeholder="Buscar..." onkeyup="render()">
+<select id="cat" onchange="render()">
+<option value="">Todas</option>
+<option>Audio</option>
+<option>Gaming</option>
+<option>Smartwatch</option>
+<option>Energía</option>
 </select>
-
-<div class="payment">
-<h3>Realiza tu pago</h3>
-<img src="https://via.placeholder.com/220x220.png?text=QR+YAPE">
+<input id="coupon" placeholder="Cupón">
+<button onclick="applyCoupon()">Aplicar cupón</button>
 </div>
 
-<br>
-<button class="btn" onclick="enviarPedido()">Enviar Pedido por WhatsApp</button>
+<h2>Productos</h2>
+<div class="grid" id="products"></div>
+
+<h2>⭐ Testimonios</h2>
+<p>★★★★★ Excelente servicio</p>
+<p>★★★★★ Productos de calidad</p>
+
+<h2>❓ Preguntas Frecuentes</h2>
+<div class="faq">
+<details><summary>¿Aceptan Yape?</summary><p>Sí.</p></details>
+<details><summary>¿Realizan envíos?</summary><p>A todo Perú.</p></details>
+<details><summary>¿Hay garantía?</summary><p>Garantía por fallas de fábrica.</p></details>
 </div>
 </div>
-
-<script>
-const productos=[
-{id:1,nombre:"Audífonos Bluetooth",precio:89,imagen:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800"},
-{id:2,nombre:"Smartwatch Deportivo",precio:149,imagen:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"},
-{id:3,nombre:"Power Bank 20000mAh",precio:129,imagen:"https://images.unsplash.com/photo-1609592806787-3d9d31d7a0a1?w=800"},
-{id:4,nombre:"Mouse Gamer RGB",precio:99,imagen:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800"}
-];
-
-let carrito=JSON.parse(localStorage.getItem("carrito")||"[]");
-
-function guardarCarrito(){
-localStorage.setItem("carrito",JSON.stringify(carrito));
-}
-
-function renderProductos(){
-const texto=document.getElementById("buscar").value.toLowerCase();
-let html="";
-productos.filter(p=>p.nombre.toLowerCase().includes(texto)).forEach(p=>{
-html+=`
-<div class="card">
-<div class="badge">🔥 Oferta</div>
-<img src="${p.imagen}">
-<div class="card-content">
-<h3>${p.nombre}</h3>
-<div class="price">S/ ${p.precio}</div>
-<button class="btn" onclick="addCart(${p.id})">Agregar al carrito</button>
-</div>
-</div>`;
-});
-document.getElementById("products").innerHTML=html;
-}
-
-function addCart(id){
-let item=carrito.find(x=>x.id===id);
-if(item)item.cantidad++;
-else carrito.push({...productos.find(x=>x.id===id),cantidad:1});
-guardarCarrito();renderCart();
-}
-
-function renderCart(){
-let total=0,cantidad=0,html="";
-carrito.forEach(item=>{
-const sub=item.precio*item.cantidad;
-total+=sub;
-cantidad+=item.cantidad;
-html+=`<div class="item"><b>${item.nombre}</b><br>
-Precio: S/${item.precio}<br>
-Subtotal: S/${sub}<br>
-<button onclick="menos(${item.id})">-</button>
-${item.cantidad}
-<button onclick="mas(${item.id})">+</button>
-<button onclick="eliminar(${item.id})">Eliminar</button>
-</div>`;
-});
-document.getElementById("cartItems").innerHTML=html;
-document.getElementById("total").innerText=total;
-document.getElementById("count").innerText=cantidad;
-}
-
-function mas(id){carrito.find(x=>x.id===id).cantidad++;guardarCarrito();renderCart();}
-function menos(id){let i=carrito.find(x=>x.id===id);if(i.cantidad>1)i.cantidad--;else eliminar(id);guardarCarrito();renderCart();}
-function eliminar(id){carrito=carrito.filter(x=>x.id!==id);guardarCarrito();renderCart();}
-function toggleCart(){document.getElementById("cart").classList.toggle("active");}
-
-function enviarPedido(){
-if(carrito.length===0)return alert("Agrega productos");
-if(!confirm("¿Deseas enviar el pedido?")) return;
-
-const pedido=Math.floor(Math.random()*100000);
-let total=0;
-let msg=`🧾 Pedido #${pedido}%0A%0A`;
-carrito.forEach(i=>{msg+=`${i.nombre} x${i.cantidad}%0A`; total+=i.precio*i.cantidad;});
-msg+=`%0ATotal: S/${total}`;
-window.open("https://wa.me/51949150700?text="+msg,"_blank");
-}
-
-renderProductos();
-renderCart();
-</script>
 
 <footer>
-<h3>NewCosmo Store</h3>
-<p>Tecnología y accesorios premium</p>
-<p>WhatsApp: +51 949 150 700</p>
-<p>© 2026 Todos los derechos reservados</p>
+<p>NewCosmo Store Premium © 2026</p>
+<p>WhatsApp: +51 949150700</p>
 </footer>
 
+<script>
+const products=[
+{name:"Audífonos Bluetooth",cat:"Audio",price:89,img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800"},
+{name:"Smartwatch",cat:"Smartwatch",price:149,img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"},
+{name:"Power Bank",cat:"Energía",price:129,img:"https://images.unsplash.com/photo-1609592806787-3d9d31d7a0a1?w=800"},
+{name:"Mouse Gamer",cat:"Gaming",price:99,img:"https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=800"}
+];
+
+function render(){
+const s=document.getElementById('search').value.toLowerCase();
+const c=document.getElementById('cat').value;
+document.getElementById('products').innerHTML=products.filter(p=>
+(!c||p.cat===c)&&p.name.toLowerCase().includes(s)
+).map(p=>`
+<div class='card'>
+<img src='${p.img}'>
+<div>
+<span class='badge'>🔥 Oferta</span>
+<h3>${p.name}</h3>
+<p>${p.cat}</p>
+<p class='price'>S/${p.price}</p>
+<button onclick="fav('${p.name}')">❤️ Favorito</button>
+<button onclick="buy('${p.name}',${p.price})">Comprar</button>
+</div></div>`).join('');
+}
+
+function fav(name){
+let f=JSON.parse(localStorage.getItem('fav')||'[]');
+if(!f.includes(name))f.push(name);
+localStorage.setItem('fav',JSON.stringify(f));
+alert('Guardado en favoritos');
+}
+
+let discount=0;
+function applyCoupon(){
+if(document.getElementById('coupon').value==='NEWCOSMO10'){discount=10;alert('Cupón aplicado');}
+}
+
+function buy(name,price){
+const finalPrice=price-(price*discount/100);
+window.open('https://wa.me/51949150700?text=Quiero comprar '+name+' Precio:S/'+finalPrice,'_blank');
+}
+
+function toggleTheme(){
+document.body.style.background=document.body.style.background==='white'?'#0f172a':'white';
+document.body.style.color=document.body.style.color==='black'?'white':'black';
+}
+
+function timer(){
+const end=new Date().getTime()+86400000;
+setInterval(()=>{
+let d=end-Date.now();
+let h=Math.floor(d/3600000);
+let m=Math.floor((d%3600000)/60000);
+let s=Math.floor((d%60000)/1000);
+document.getElementById('countdown').innerText='⏰ Oferta termina en '+h+'h '+m+'m '+s+'s';
+},1000);
+}
+render(); timer();
+</script>
 </body>
 </html>

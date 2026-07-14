@@ -6,6 +6,8 @@
     <title>NewCosmo Store | Premium Ultimate</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -15,109 +17,763 @@
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
         .faq-answer.open { max-height: 200px; }
         .premium-gradient { background: linear-gradient(135deg, #111827 0%, #1f2937 100%); }
-        .gold-gradient-text { background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        #splashScreen { position: fixed; inset: 0; background: #0b0f19; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s ease, visibility 0.6s; }
-        .skeleton { background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%); background-size: 200% 100%; animation: loading 1.5s infinite; }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Estilos del Splash Screen */
+        #splashScreen {
+            position: fixed;
+            inset: 0;
+            background: #0b0f19;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s;
+        }
+        .splash-logo-pulse {
+            animation: pulse-gold 2s infinite ease-in-out;
+        }
+        @keyframes pulse-gold {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.2)); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.6)); }
+        }
+
+        /* Barra de desplazamiento */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #111827; border-radius: 10px; }
+        .skeleton {
+            background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
         @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 overflow-x-hidden">
+<body class="bg-gray-50 text-gray-900 selection:bg-amber-500 selection:text-white overflow-hidden">
 
-    <!-- SPLASH SCREEN -->
+    <!-- SPLASH SCREEN (PANTALLA DE CARGA) -->
     <div id="splashScreen">
-        <div class="text-center space-y-6 animate-pulse">
-            <div class="bg-gradient-to-br from-amber-400 to-amber-600 text-black p-6 rounded-3xl inline-block shadow-2xl">
+        <div class="text-center space-y-6">
+            <!-- Logo del Splash -->
+            <div class="splash-logo-pulse bg-gradient-to-br from-amber-400 to-amber-600 text-black p-6 rounded-3xl inline-block shadow-2xl">
                 <i class="fa-solid fa-crown text-5xl"></i>
             </div>
-            <h1 class="text-3xl font-extrabold text-white">New<span class="text-amber-400">Cosmo</span>.</h1>
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight text-white">
+                    New<span class="text-amber-400">Cosmo</span><span class="text-amber-500">.</span>
+                </h1>
+                <p class="text-gray-400 text-xs uppercase tracking-widest mt-2">Cargando Experiencia Premium</p>
+            </div>
+            <!-- Indicador de carga -->
+            <div class="w-32 h-1.5 bg-gray-800 rounded-full mx-auto overflow-hidden">
+                <div class="h-full bg-amber-500 rounded-full skeleton w-full"></div>
+            </div>
         </div>
     </div>
 
+    <!-- ANUNCIO SUPERIOR -->
+    <div class="bg-amber-500 text-black text-center text-xs font-bold tracking-widest py-2 px-4 uppercase">
+        ✨ Envíos express garantizados & Garantía de satisfacción premium ✨
+    </div>
+
     <!-- NAVBAR PREMIUM -->
-    <nav class="bg-white/80 backdrop-blur-lg sticky top-0 z-40 border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" onclick="location.reload()" class="text-2xl font-black">New<span class="text-amber-500">Cosmo</span>.</a>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleCart(true)" class="relative p-2 hover:bg-gray-100 rounded-full transition">
-                    <i class="fa-solid fa-bag-shopping text-xl"></i>
-                    <span id="cartCount" class="absolute top-0 right-0 bg-amber-500 text-[10px] w-5 h-5 flex items-center justify-center rounded-full text-white font-bold">0</span>
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-gray-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            
+            <!-- Logo Principal -->
+            <a href="#" onclick="cambiarCategoria('Todos')" class="flex items-center gap-3 group">
+                <div class="bg-gradient-to-br from-gray-900 to-black text-amber-400 p-2.5 rounded-2xl group-hover:from-amber-500 group-hover:to-amber-600 group-hover:text-black shadow-md transition-all duration-300">
+                    <i class="fa-solid fa-crown text-xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-tight text-gray-900 leading-none">
+                        New<span class="text-amber-500">Cosmo</span>.
+                    </span>
+                    <span class="text-[9px] text-gray-400 tracking-widest uppercase font-bold">Store Premium</span>
+                </div>
+            </a>
+            
+            <!-- Buscador -->
+            <div class="hidden md:block w-1/3 relative">
+                <input type="text" id="searchInput" oninput="procesarFiltrosYOrden()" placeholder="Busca la excelencia aquí..." class="w-full pl-12 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white text-sm transition-all-custom">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-gray-400 text-sm"></i>
+            </div>
+
+            <!-- Acciones de Usuario -->
+            <div class="flex items-center space-x-4 sm:space-x-6">
+                <button onclick="filtrarFavoritos()" class="relative p-2 text-gray-600 hover:text-red-500 transition-colors">
+                    <i class="fa-regular fa-heart text-xl sm:text-2xl"></i>
+                    <span id="favCount" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white shadow-sm">0</span>
                 </button>
+                
+                <button onclick="toggleCart(true)" class="relative p-2 text-gray-600 hover:text-gray-900 transition-colors bg-gray-50 rounded-full hover:bg-gray-100">
+                    <i class="fa-solid fa-bag-shopping text-xl sm:text-2xl"></i>
+                    <span id="cartCount" class="absolute top-0 right-0 bg-amber-500 text-black text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white shadow-sm">0</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Filtros por Categoría -->
+        <div class="bg-white border-t border-gray-100 py-3">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-2 overflow-x-auto text-sm">
+                <button onclick="cambiarCategoria('Todos')" class="cat-btn px-4 py-2 rounded-full font-medium transition-all-custom bg-gray-900 text-white shadow-sm" data-cat="Todos">Todos los productos</button>
+                <button onclick="cambiarCategoria('Tecnología')" class="cat-btn px-4 py-2 rounded-full font-medium text-gray-600 hover:bg-gray-100 transition-all-custom" data-cat="Tecnología">⚡ Tecnología</button>
+                <button onclick="cambiarCategoria('Moda')" class="cat-btn px-4 py-2 rounded-full font-medium text-gray-600 hover:bg-gray-100 transition-all-custom" data-cat="Moda">✨ Moda Premium</button>
+                <button onclick="cambiarCategoria('Hogar')" class="cat-btn px-4 py-2 rounded-full font-medium text-gray-600 hover:bg-gray-100 transition-all-custom" data-cat="Hogar">🏡 Hogar y Confort</button>
             </div>
         </div>
     </nav>
 
-    <!-- MAIN CONTENT -->
-    <main class="max-w-7xl mx-auto px-4 py-12">
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Productos generados dinámicamente -->
+    <!-- HERO / BANNER PRINCIPAL -->
+    <div class="premium-gradient text-white relative overflow-hidden py-16 sm:py-24 px-4 sm:px-6 lg:px-8 shadow-inner">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-4 uppercase tracking-widest">
+                Exclusivo en Línea
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-extrabold mb-4 tracking-tight leading-none">
+                Eleva tu Estilo de Vida con <span class="gold-gradient-text">Cosmo Premium</span>
+            </h1>
+            <p class="text-gray-400 text-base sm:text-xl max-w-xl mx-auto mb-8 font-light">
+                Descubre una selección minuciosamente curada de tecnología avanzada, moda vanguardista y confort para el hogar.
+            </p>
+            
+            <!-- Temporizador de Oferta -->
+            <div class="inline-flex bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl space-x-4 sm:space-x-6">
+                <div class="text-center min-w-[60px]"><span id="hours" class="text-2xl sm:text-4xl font-black text-amber-400 block">00</span><span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Horas</span></div>
+                <div class="text-center min-w-[60px]"><span id="minutes" class="text-2xl sm:text-4xl font-black text-amber-400 block">00</span><span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Minutos</span></div>
+                <div class="text-center min-w-[60px]"><span id="seconds" class="text-2xl sm:text-4xl font-black text-amber-400 block">00</span><span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Segundos</span></div>
+            </div>
+            
+            <p class="mt-4 text-xs text-gray-400 font-medium">
+                Usa el cupón <span class="bg-amber-400 text-black px-2 py-0.5 rounded font-bold mx-1">COSMO20</span> para un <span class="text-amber-400 font-bold">20% OFF</span> adicional.
+            </p>
+        </div>
+    </div>
+
+    <!-- SECCIÓN DE PRODUCTOS -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+            <div>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900 tracking-tight" id="seccionTitulo">Todos los Productos</h2>
+                <div class="h-1 w-12 bg-amber-500 mt-2 rounded-full"></div>
+            </div>
+            
+            <!-- Controles de Filtro Avanzado y Ordenamiento -->
+            <div class="w-full md:w-auto flex flex-col sm:flex-row gap-3 items-center">
+                <div class="block md:hidden w-full relative">
+                    <input type="text" id="searchInputMobile" oninput="sincronizarYFiltrar(this.value)" placeholder="Buscar productos..." class="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400 text-sm"></i>
+                </div>
+                <div class="w-full sm:w-auto flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-200 shadow-sm">
+                    <i class="fa-solid fa-arrow-down-short-wide text-gray-400 text-sm"></i>
+                    <select id="sortSelect" onchange="procesarFiltrosYOrden()" class="text-sm font-medium bg-transparent focus:outline-none text-gray-700 cursor-pointer w-full sm:w-auto">
+                        <option value="default">Ordenar por: Destacados</option>
+                        <option value="price-asc">Precio: Menor a Mayor</option>
+                        <option value="price-desc">Precio: Mayor a Menor</option>
+                        <option value="alpha">Nombre: A - Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Grid de Productos -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Cargados dinámicamente con JS -->
         </div>
     </main>
 
-    <!-- CARRITO SLIDEOUT -->
-    <div id="cartModal" class="fixed inset-y-0 right-0 w-full sm:w-[400px] bg-white shadow-2xl cart-closed transition-transform duration-300 z-50 p-6 flex flex-col border-l">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-bold">Tu Bolsa</h2>
-            <button onclick="toggleCart(false)" class="text-2xl">&times;</button>
+    <!-- PROPUESTA DE VALOR -->
+    <section class="border-t border-gray-100 bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center md:text-left">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition-all-custom">
+                    <div class="p-3 bg-amber-500/10 text-amber-600 rounded-xl text-2xl"><i class="fa-solid fa-truck-fast"></i></div>
+                    <div><h4 class="font-bold text-gray-900 mb-1">Envío Inmediato</h4><p class="text-sm text-gray-500">Coordinación al instante y entrega segura mediante WhatsApp.</p></div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition-all-custom">
+                    <div class="p-3 bg-amber-500/10 text-amber-600 rounded-xl text-2xl"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div><h4 class="font-bold text-gray-900 mb-1">Garantía Asegurada</h4><p class="text-sm text-gray-500">Garantía completa de fábrica en todos tus productos seleccionados.</p></div>
+                </div>
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-4 p-4 rounded-xl hover:bg-gray-50 transition-all-custom">
+                    <div class="p-3 bg-amber-500/10 text-amber-600 rounded-xl text-2xl"><i class="fa-solid fa-qrcode"></i></div>
+                    <div><h4 class="font-bold text-gray-900 mb-1">Pagos sin Fricciones</h4><p class="text-sm text-gray-500">Escanea códigos QR (Yape/Plin) de forma instantánea y segura.</p></div>
+                </div>
+            </div>
         </div>
-        <div id="cartItems" class="flex-1 overflow-y-auto space-y-4"></div>
-        <button onclick="enviarWhatsApp()" class="w-full bg-green-600 text-white py-4 rounded-xl font-bold mt-4">Continuar pedido</button>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="bg-gray-900 text-white py-20 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-12">
+                <span class="text-xs font-bold tracking-widest text-amber-400 uppercase">Experiencias Reales</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-2 tracking-tight">Lo que opinan nuestros selectos clientes</h2>
+            </div>
+            
+            <div id="testimonialContainer" class="max-w-3xl mx-auto text-center h-48 flex items-center justify-center">
+                <div id="testimonialCard" class="transition-opacity duration-500 opacity-100">
+                    <div class="text-amber-400 text-sm mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p id="testimonialText" class="text-lg sm:text-xl text-gray-300 italic max-w-2xl mx-auto leading-relaxed">"La atención y el pedido automatizado por WhatsApp es un lujo. El producto llegó impecable y súper rápido."</p>
+                    <p id="testimonialAuthor" class="mt-6 font-bold text-amber-400 text-sm tracking-wider uppercase">- Laura M.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <h2 class="text-3xl font-extrabold text-center mb-10 tracking-tight text-gray-900">Preguntas Frecuentes</h2>
+        <div class="space-y-4">
+            <div class="border border-gray-200 rounded-xl bg-white shadow-sm overflow-hidden">
+                <button class="w-full text-left px-5 py-4 font-semibold text-gray-800 focus:outline-none flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFaq('faq1')">
+                    ¿Cómo realizo un pedido? <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-300"></i>
+                </button>
+                <div id="faq1" class="faq-answer px-5 pb-4 text-gray-500 text-sm leading-relaxed">
+                    Añade tus productos premium al carrito, introduce tus datos de envío en el formulario integrado y pulsa "Enviar por WhatsApp". Serás redirigido con tu factura digital lista para confirmación.
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded-xl bg-white shadow-sm overflow-hidden">
+                <button class="w-full text-left px-5 py-4 font-semibold text-gray-800 focus:outline-none flex justify-between items-center hover:bg-gray-50 transition-colors" onclick="toggleFaq('faq2')">
+                    ¿Cuáles son los métodos de pago? <i class="fa-solid fa-chevron-down text-xs text-gray-400 transition-transform duration-300"></i>
+                </button>
+                <div id="faq2" class="faq-answer px-5 pb-4 text-gray-500 text-sm leading-relaxed">
+                    Ofrecemos opciones cómodas como efectivo contra entrega, transferencias directas y pagos dinámicos digitales mediante códigos QR de Yape y Plin.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-950 text-gray-400 py-12 border-t border-gray-900 text-center text-sm">
+        <div class="max-w-7xl mx-auto px-4 space-y-4">
+            <div class="text-white font-bold text-lg tracking-tight">NewCosmo<span class="text-amber-500">.</span></div>
+            <p>&copy; 2026 NewCosmo Store Premium Pro. Desarrollado con los más altos estándares de excelencia.</p>
+        </div>
+    </footer>
+
+    <!-- CARRITO DE COMPRAS SLIDEOUT -->
+    <div id="cartModal" class="fixed inset-y-0 right-0 w-full sm:w-[460px] bg-white shadow-2xl cart-closed transition-transform duration-300 z-50 flex flex-col border-l border-gray-100">
+        <div class="flex justify-between items-center p-6 border-b border-b-gray-100 bg-gray-900 text-white">
+            <h2 class="text-lg font-bold tracking-tight flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-amber-400"></i> Bolsa de Compras
+            </h2>
+            <button onclick="toggleCart(false)" class="text-gray-400 hover:text-white text-2xl transition-colors">&times;</button>
+        </div>
+        
+        <!-- Elementos del Carrito y Formulario -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-6">
+            <div id="cartItems" class="space-y-4"></div>
+            
+            <!-- Formulario de Entrega -->
+            <div id="checkoutForm" class="border-t border-gray-100 pt-6 space-y-4">
+                <h3 class="text-xs font-bold text-gray-900 uppercase tracking-widest flex items-center gap-2">
+                    <i class="fa-solid fa-user-check text-amber-500"></i> Datos de Entrega Premium
+                </h3>
+                <div class="grid grid-cols-1 gap-3">
+                    <input type="text" id="custName" placeholder="Nombre completo" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all">
+                    <input type="tel" id="custPhone" placeholder="Teléfono de contacto" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all">
+                    <input type="text" id="custAddress" placeholder="Dirección exacta de entrega" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all">
+                </div>
+            </div>
+        </div>
+
+        <!-- Acciones Finales -->
+        <div class="p-6 border-t border-gray-100 bg-gray-50 space-y-4 shadow-[0_-4px_24px_rgba(0,0,0,0.02)]">
+            <div class="flex shadow-sm rounded-xl overflow-hidden border border-gray-200">
+                <input type="text" id="couponCode" placeholder="Ingresa un cupón" class="w-full px-4 py-2.5 bg-white text-sm focus:outline-none">
+                <button onclick="applyCoupon()" class="bg-gray-900 text-white px-5 text-sm font-semibold hover:bg-amber-500 hover:text-black transition-colors uppercase tracking-wider">Aplicar</button>
+            </div>
+            <p id="couponMessage" class="text-xs font-semibold hidden px-2"></p>
+            
+            <div class="bg-white p-4 rounded-xl border border-gray-200 space-y-2">
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider">Medio de Pago:</label>
+                <select id="paymentMethod" onchange="handlePaymentChange()" class="w-full py-2 px-1 text-sm bg-transparent border-b-2 border-gray-100 focus:outline-none focus:border-amber-500 font-medium text-gray-800 cursor-pointer">
+                    <option value="Efectivo / Transferencia">💸 Efectivo o Transferencia Directa</option>
+                    <option value="QR Yape / Plin">📱 Pago Inteligente QR (Yape / Plin)</option>
+                </select>
+                
+                <div id="qrContainer" class="hidden mt-4 flex flex-col items-center border border-dashed border-gray-200 p-4 rounded-xl bg-gray-50">
+                    <p class="text-[11px] text-gray-500 mb-3 text-center font-medium">Escanea de forma inmediata desde tu app financiera:</p>
+                    <div class="bg-white p-2 rounded-xl shadow-sm border border-gray-100">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=YAPE_NEWCOSMO_PREMIUM" alt="QR Yape Plin" class="w-32 h-32 object-contain">
+                    </div>
+                    <span class="text-xs text-gray-900 mt-2 font-bold">Titular: NewCosmo Store</span>
+                </div>
+            </div>
+            
+            <div class="flex justify-between items-baseline py-2">
+                <span class="text-gray-500 font-medium text-sm">Total estimado:</span>
+                <span id="cartTotal" class="text-2xl font-black text-gray-900 tracking-tight">S/ 0.00</span>
+            </div>
+    
+            <button onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 rounded-xl shadow-md hover:shadow-lg transition-all flex justify-center items-center gap-2.5 text-sm tracking-wide">
+                <i class="fa-brands fa-whatsapp text-lg"></i> CONTINUAR PEDIDO POR WHATSAPP
+            </button>
+        </div>
+    </div>
+    
+    <!-- OVERLAY -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-40 transition-opacity" onclick="cerrarModales()"></div>
+
+    <!-- MODAL DE VISTA RÁPIDA (QUICK VIEW) -->
+    <div id="quickViewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-gray-100 transform scale-95 opacity-0 transition-all duration-300 flex flex-col md:flex-row relative">
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 bg-gray-900 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md hover:bg-amber-500 hover:text-black z-10">&times;</button>
+            <div class="w-full md:w-1/2 bg-gray-50 h-64 md:h-auto relative">
+                <img id="qvImage" src="" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-between">
+                <div>
+                    <span id="qvCategory" class="text-[10px] bg-gray-900 text-white font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">Categoría</span>
+                    <h3 id="qvName" class="text-xl sm:text-2xl font-extrabold text-gray-900 mt-4 leading-snug">Nombre de producto</h3>
+                    <p id="qvDescription" class="text-sm text-gray-500 mt-3 font-light leading-relaxed">Esta es una descripción detallada.</p>
+                    <div class="mt-4 flex gap-2 text-xs font-semibold text-gray-600">
+                        <span class="px-2.5 py-1 bg-gray-100 rounded-md">⚡ Stock Premium</span>
+                        <span class="px-2.5 py-1 bg-gray-100 rounded-md">🛡️ Garantía 1 Año</span>
+                    </div>
+                </div>
+                <div class="mt-8 pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <span id="qvPrice" class="text-2xl font-black text-gray-900">S/ 0.00</span>
+                    <button id="qvAddBtn" onclick="" class="bg-gray-900 text-white font-bold px-5 py-3 rounded-xl hover:bg-amber-500 hover:text-black shadow-md transition-all text-xs tracking-wider uppercase">Añadir a Bolsa</button>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- SCRIPT DE COMPORTAMIENTO COMPLETO -->
     <script>
         const TELEFONO_WHATSAPP = "51999999999"; 
+
+        // BANCO DE DATOS DE PRODUCTOS
+        let productos = [];
         const dbMock = [
-            { id: 1, nombre: "Auriculares Pro", precio: 59.90, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" },
-            { id: 2, nombre: "Smartwatch", precio: 89.50, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80" },
-            { id: 3, nombre: "Zapatillas", precio: 145.00, categoria: "Moda", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80" },
-            { id: 4, nombre: "Cafetera Pro", precio: 135.00, categoria: "Hogar", img: "https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?w=500&q=80" }
+            { id: 1, nombre: "Auriculares Inalámbricos Pro", precio: 59.90, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80", desc: "Cancelación de ruido activa premium, sonido de alta fidelidad acústica y batería ultra duradera de hasta 40 horas." },
+            { id: 2, nombre: "Smartwatch Deportivo", precio: 89.50, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80", desc: "Monitoreo cardíaco avanzado, GPS satelital integrado, pantalla AMOLED de cristal reforzado y resistencia al agua." },
+            { id: 3, nombre: "Zapatillas Urbanas", precio: 145.00, categoria: "Moda", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80", desc: "Diseño ergonómico de vanguardia. Confeccionadas con fibras transpirables ligeras y suela amortiguadora de alto impacto." },
+            { id: 4, nombre: "Gafas de Sol Premium", precio: 65.90, categoria: "Moda", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&q=80", desc: "Protección UV400 certificada de amplio espectro. Montura de acetato pulida a mano con acabados metálicos de oro." },
+            { id: 5, nombre: "Lámpara Led Inteligente", precio: 44.00, categoria: "Hogar", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&q=80", desc: "Control de voz inteligente compatible con ecosistemas modernos. Millones de colores RGB configurables y dimerización." },
+            { id: 6, nombre: "Mochila Antirrobo", precio: 79.90, categoria: "Moda", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80", desc: "Cierres ocultos de seguridad balística, puerto de carga USB exterior integrado y material impermeable de alta resistencia." },
+            { id: 7, nombre: "Teclado Mecánico RGB", precio: 120.00, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&q=80", desc: "Interruptores mecánicos táctiles de alta respuesta, retroiluminación RGB personalizable y reposamuñecas ergonómico." },
+            { id: 8, nombre: "Cargador Inalámbrico Fast", precio: 39.90, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1622445262465-2481c857535a?w=500&q=80", desc: "Carga rápida inalámbrica de 15W compatible con múltiples dispositivos móviles de gama alta, acabado antideslizante." },
+            { id: 9, font: "Reloj Minimalista Cuero", nombre: "Reloj Minimalista Cuero", precio: 110.00, categoria: "Moda", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&q=80", desc: "Reloj analógico clásico de alta precisión con correa de cuero italiano legítimo y esfera resistente a rayaduras." },
+            { id: 10, nombre: "Perfume Black Velvet", precio: 95.00, categoria: "Moda", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=500&q=80", desc: "Fragancia premium masculina de larga duración con notas de cuero, sándalo y cítricos frescos seleccionados." },
+            { id: 11, nombre: "Cafetera de Goteo Pro", precio: 135.00, categoria: "Hogar", img: "https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?w=500&q=80", desc: "Filtro permanente integrado, temporizador programable de inicio y jarra de vidrio templado de gran capacidad." },
+            { id: 12, nombre: "Humidificador Ultrasónico", precio: 49.90, categoria: "Hogar", img: "https://images.unsplash.com/photo-1519183071298-a2962feb14f4?w=500&q=80", desc: "Funcionamiento ultrasilencioso, difusor de aceites esenciales aromáticos y luces LED nocturnas relajantes de 7 colores." }
         ];
 
-        let carrito = JSON.parse(localStorage.getItem('newcosmo_cart')) || [];
+        // TESTIMONIOS ROTATIVOS
+        const testimonios = [
+            { texto: '"La atención y el pedido automatizado por WhatsApp es un lujo. El producto llegó impecable y súper rápido."', autor: "- Laura M." },
+            { texto: '"La calidad de los audífonos superó mis expectativas. Se nota la curación premium de los productos tecnológicos."', autor: "- Carlos G." },
+            { texto: '"Interfaz sumamente limpia en mi teléfono móvil, es un verdadero placer comprar en esta tienda web."', autor: "- Andrea V." }
+        ];
+        let currentTestimonialIndex = 0;
 
-        function renderProductos() {
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = dbMock.map(p => `
-                <div class="bg-white p-4 rounded-2xl border hover:shadow-lg transition">
-                    <img src="${p.img}" class="w-full h-48 object-cover rounded-xl mb-4">
-                    <h3 class="font-bold">${p.nombre}</h3>
-                    <p class="text-amber-600 font-black">S/ ${p.precio.toFixed(2)}</p>
-                    <button onclick="agregarAlCarrito(${p.id})" class="w-full mt-4 bg-gray-900 text-white py-2 rounded-lg text-sm">Añadir</button>
-                </div>
-            `).join('');
-            document.getElementById('splashScreen').style.opacity = '0';
-            setTimeout(() => document.getElementById('splashScreen').style.display = 'none', 600);
+        let carrito = JSON.parse(localStorage.getItem('newcosmo_cart')) || [];
+        let favoritos = JSON.parse(localStorage.getItem('newcosmo_favs')) || [];
+        let descuentoAplicado = 0; 
+        let filtroActual = 'Todos';
+
+        // GESTIÓN DEL SPLASH SCREEN
+        function desactivarSplashScreen() {
+            const splash = document.getElementById('splashScreen');
+            splash.style.opacity = '0';
+            splash.style.visibility = 'hidden';
+            // Devolver el scroll al body una vez cargado
+            document.body.classList.remove('overflow-hidden');
         }
 
-        function agregarAlCarrito(id) {
-            const prod = dbMock.find(p => p.id === id);
-            carrito.push(prod);
-            localStorage.setItem('newcosmo_cart', JSON.stringify(carrito));
-            actualizarUI();
+        // SKELETON LOADER
+        function inicializarConSkeletons() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            for(let i=0; i<4; i++) {
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden p-5 space-y-4">
+                        <div class="skeleton h-56 w-full rounded-xl"></div>
+                        <div class="skeleton h-4 w-1/3 rounded"></div>
+                        <div class="skeleton h-6 w-3/4 rounded"></div>
+                        <div class="flex justify-between items-center pt-4">
+                            <div class="skeleton h-6 w-1/4 rounded"></div>
+                            <div class="skeleton h-10 w-10 rounded-xl"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            setTimeout(() => {
+                productos = dbMock; 
+                procesarFiltrosYOrden();
+                // Desactivar splash screen después de cargar los skeletons iniciales
+                desactivarSplashScreen();
+            }, 1800);
+        }
+
+        // BÚSQUEDA Y FILTRADO
+        function sincronizarYFiltrar(val) {
+            document.getElementById('searchInput').value = val;
+            procesarFiltrosYOrden();
+        }
+
+        function procesarFiltrosYOrden() {
+            const grid = document.getElementById('productGrid');
+            const busqueda = document.getElementById('searchInput').value;
+            const criterioOrden = document.getElementById('sortSelect').value;
+            grid.innerHTML = '';
+
+            let productosFiltrados = [...productos];
+
+            if (filtroActual !== 'Todos' && filtroActual !== 'Favoritos') {
+                productosFiltrados = productosFiltrados.filter(p => p.categoria === filtroActual);
+                document.getElementById('seccionTitulo').innerText = `${filtroActual}`;
+            } else if (filtroActual === 'Favoritos') {
+                productosFiltrados = productosFiltrados.filter(p => favoritos.includes(p.id));
+                document.getElementById('seccionTitulo').innerText = `Tus Favoritos`;
+            } else {
+                document.getElementById('seccionTitulo').innerText = `Colección Premium`;
+            }
+
+            if (busqueda) {
+                productosFiltrados = productosFiltrados.filter(p => p.nombre.toLowerCase().includes(busqueda.toLowerCase()));
+            }
+
+            if (criterioOrden === 'price-asc') {
+                productosFiltrados.sort((a, b) => a.precio - b.precio);
+            } else if (criterioOrden === 'price-desc') {
+                productosFiltrados.sort((a, b) => b.precio - a.precio);
+            } else if (criterioOrden === 'alpha') {
+                productosFiltrados.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            }
+
+            if (productosFiltrados.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center py-16 text-gray-400"><i class="fa-solid fa-box-open text-4xl mb-3 block text-gray-300"></i> No se encontraron productos.</div>';
+                return;
+            }
+
+            productosFiltrados.forEach(prod => {
+                const esFav = favoritos.includes(prod.id);
+                const html = `
+                    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:border-transparent transition-all-custom group flex flex-col justify-between cursor-pointer" onclick="openQuickView(${prod.id}, event)">
+                        <div class="relative bg-gray-50 h-64 overflow-hidden">
+                            <img src="${prod.img}" alt="${prod.nombre}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <button onclick="toggleFavorito(${prod.id}, event)" class="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2.5 rounded-full shadow-sm hover:bg-white transition-colors ${esFav ? 'text-red-500' : 'text-gray-400'} z-10">
+                                <i class="${esFav ? 'fa-solid' : 'fa-regular'} fa-heart text-base"></i>
+                            </button>
+                            <span class="absolute bottom-4 left-4 bg-gray-950/80 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">${prod.categoria}</span>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-gray-900 text-base mb-1 group-hover:text-amber-600 transition-colors line-clamp-2">${prod.nombre}</h3>
+                                <p class="text-xs text-gray-400 font-light">Vista Rápida Disponible</p>
+                            </div>
+                            <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-50">
+                                <span class="text-xl font-black text-gray-900">S/ ${prod.precio.toFixed(2)}</span>
+                                <button onclick="agregarAlCarrito(${prod.id}, event)" class="bg-gray-900 text-white p-3 rounded-xl hover:bg-amber-500 hover:text-black shadow-sm transition-all-custom z-10">
+                                    <i class="fa-solid fa-plus text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += html;
+            });
+            actualizarContadores();
+        }
+
+        function cambiarCategoria(cat) {
+            filtroActual = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if(btn.getAttribute('data-cat') === cat) {
+                    btn.classList.add('bg-gray-900', 'text-white', 'shadow-sm');
+                    btn.classList.remove('text-gray-600', 'hover:bg-gray-100');
+                } else {
+                    btn.classList.remove('bg-gray-900', 'text-white', 'shadow-sm');
+                    btn.classList.add('text-gray-600', 'hover:bg-gray-100');
+                }
+            });
+            procesarFiltrosYOrden();
+        }
+
+        function filtrarFavoritos() {
+            filtroActual = 'Favoritos';
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-900', 'text-white', 'shadow-sm');
+                btn.classList.add('text-gray-600', 'hover:bg-gray-100');
+            });
+            procesarFiltrosYOrden();
+        }
+
+        // CONTROL DE MODALES Y VISTA RÁPIDA
+        function openQuickView(id, event) {
+            if(event) event.stopPropagation();
+            const prod = productos.find(p => p.id === id);
+            if(!prod) return;
+
+            document.getElementById('qvImage').src = prod.img;
+            document.getElementById('qvCategory').innerText = prod.categoria;
+            document.getElementById('qvName').innerText = prod.nombre;
+            document.getElementById('qvDescription').innerText = prod.desc;
+            document.getElementById('qvPrice').innerText = `S/ ${prod.precio.toFixed(2)}`;
+            
+            const addBtn = document.getElementById('qvAddBtn');
+            addBtn.setAttribute('onclick', `agregarAlCarrito(${prod.id}, event); closeQuickView();`);
+
+            const modal = document.getElementById('quickViewModal');
+            const overlay = document.getElementById('cartOverlay');
+            
+            modal.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                modal.children[0].classList.remove('scale-95', 'opacity-0');
+                modal.children[0].classList.add('scale-100', 'opacity-100');
+            }, 50);
+        }
+
+        function closeQuickView() {
+            const modal = document.getElementById('quickViewModal');
+            modal.children[0].classList.remove('scale-100', 'opacity-100');
+            modal.children[0].classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                if(document.getElementById('cartModal').classList.contains('cart-closed')) {
+                    document.getElementById('cartOverlay').classList.add('hidden');
+                }
+            }, 300);
+        }
+
+        function cerrarModales() {
+            closeQuickView();
+            toggleCart(false);
+        }
+
+        // FUNCIONES DE CARRITO
+        function toggleCart(abrir) {
+            const modal = document.getElementById('cartModal');
+            const overlay = document.getElementById('cartOverlay');
+            if(abrir) {
+                modal.classList.remove('cart-closed');
+                modal.classList.add('cart-open');
+                overlay.classList.remove('hidden');
+            } else {
+                modal.classList.remove('cart-open');
+                modal.classList.add('cart-closed');
+                if(document.getElementById('quickViewModal').classList.contains('hidden')) {
+                    overlay.classList.add('hidden');
+                }
+            }
+        }
+
+        function agregarAlCarrito(id, event) {
+            if(event) event.stopPropagation();
+            const producto = productos.find(p => p.id === id);
+            const itemEnCarrito = carrito.find(item => item.id === id);
+            if (itemEnCarrito) {
+                itemEnCarrito.cantidad++;
+            } else {
+                carrito.push({ ...producto, cantidad: 1 });
+            }
+            guardarDatos();
+            actualizarCarrito();
             toggleCart(true);
         }
 
-        function actualizarUI() {
-            document.getElementById('cartCount').innerText = carrito.length;
+        function cambiarCantidad(id, cambio) {
+            const item = carrito.find(item => item.id === id);
+            if (item) {
+                item.cantidad += cambio;
+                if(item.cantidad <= 0) {
+                    carrito = carrito.filter(i => i.id !== id);
+                }
+                guardarDatos();
+                actualizarCarrito();
+            }
+        }
+
+        function actualizarCarrito() {
             const container = document.getElementById('cartItems');
-            container.innerHTML = carrito.map(item => `
-                <div class="flex justify-between items-center border-b pb-2">
-                    <span>${item.nombre}</span>
-                    <span class="font-bold">S/ ${item.precio}</span>
-                </div>
-            `).join('');
+            container.innerHTML = '';
+            let subtotal = 0;
+
+            carrito.forEach(item => {
+                subtotal += item.precio * item.cantidad;
+                container.innerHTML += `
+                    <div class="flex items-center gap-4 bg-gray-50 p-3.5 rounded-xl border border-gray-100">
+                        <img src="${item.img}" class="w-16 h-16 object-cover rounded-lg border border-gray-200">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-sm text-gray-900 line-clamp-1">${item.nombre}</h4>
+                            <p class="text-xs text-amber-600 font-semibold mt-0.5">S/ ${item.precio.toFixed(2)}</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="cambiarCantidad(${item.id}, -1)" class="w-6 h-6 bg-white border border-gray-200 text-gray-600 rounded flex items-center justify-center font-bold text-xs hover:bg-gray-100">-</button>
+                                <span class="text-xs font-bold text-gray-800">${item.cantidad}</span>
+                                <button onclick="cambiarCantidad(${item.id}, 1)" class="w-6 h-6 bg-white border border-gray-200 text-gray-600 rounded flex items-center justify-center font-bold text-xs hover:bg-gray-100">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            if(carrito.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fa-solid fa-basket-shopping text-3xl mb-2 block"></i>
+                        Tu bolsa de compras está vacía.
+                    </div>
+                `;
+            }
+
+            const totalConDescuento = subtotal * (1 - descuentoAplicado);
+            document.getElementById('cartTotal').innerText = `S/ ${totalConDescuento.toFixed(2)}`;
+            actualizarContadores();
         }
 
-        function toggleCart(abrir) {
-            const modal = document.getElementById('cartModal');
-            abrir ? modal.classList.replace('cart-closed', 'cart-open') : modal.classList.replace('cart-open', 'cart-closed');
+        // PROCESAR CUPONES
+        function applyCoupon() {
+            const code = document.getElementById('couponCode').value.trim().toUpperCase();
+            const msg = document.getElementById('couponMessage');
+            
+            if(code === 'COSMO20') {
+                descuentoAplicado = 0.20;
+                msg.innerText = "¡Cupón COSMO20 aplicado! 20% de descuento.";
+                msg.className = "text-xs font-semibold text-green-600 px-2";
+            } else {
+                descuentoAplicado = 0;
+                msg.innerText = "Cupón inválido.";
+                msg.className = "text-xs font-semibold text-red-500 px-2";
+            }
+            msg.classList.remove('hidden');
+            actualizarCarrito();
         }
 
+        // CONTROL DE FAVORITOS
+        function toggleFavorito(id, event) {
+            if(event) event.stopPropagation();
+            if(favoritos.includes(id)) {
+                favoritos = favoritos.filter(fId => fId !== id);
+            } else {
+                favoritos.push(id);
+            }
+            guardarDatos();
+            procesarFiltrosYOrden();
+        }
+
+        // NÚMERO DE ARTÍCULOS EN INTERFAZ
+        function actualizarContadores() {
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            document.getElementById('cartCount').innerText = totalItems;
+            document.getElementById('favCount').innerText = favoritos.length;
+        }
+
+        function guardarDatos() {
+            localStorage.setItem('newcosmo_cart', JSON.stringify(carrito));
+            localStorage.setItem('newcosmo_favs', JSON.stringify(favoritos));
+        }
+
+        // GESTOR DE MÉTODO DE PAGO
+        function handlePaymentChange() {
+            const method = document.getElementById('paymentMethod').value;
+            const qrContainer = document.getElementById('qrContainer');
+            if (method.includes('QR')) {
+                qrContainer.classList.remove('hidden');
+            } else {
+                qrContainer.classList.add('hidden');
+            }
+        }
+
+        // ENVIAR WHATSAPP
         function enviarWhatsApp() {
-            const msg = `Pedido: ${carrito.map(i => i.nombre).join(', ')}`;
-            window.open(`https://api.whatsapp.com/send?phone=${TELEFONO_WHATSAPP}&text=${encodeURIComponent(msg)}`);
+            const nombre = document.getElementById('custName').value.trim();
+            const telefono = document.getElementById('custPhone').value.trim();
+            const direccion = document.getElementById('custAddress').value.trim();
+            const metodoPago = document.getElementById('paymentMethod').value;
+
+            if(!nombre || !telefono || !direccion) {
+                alert("Por favor completa los datos de entrega.");
+                return;
+            }
+            if(carrito.length === 0) {
+                alert("Tu bolsa de compras está vacía.");
+                return;
+            }
+
+            let mensaje = `🛍️ *NUEVA ORDEN - NEWCOSMO STORE* 🛍️\n\n`;
+            mensaje += `👤 *Cliente:* ${nombre}\n`;
+            mensaje += `📞 *Teléfono:* ${telefono}\n`;
+            mensaje += `📍 *Dirección:* ${direccion}\n`;
+            mensaje += `💳 *Método de Pago:* ${metodoPago}\n\n`;
+            mensaje += `📋 *Detalle del Pedido:*\n`;
+
+            let subtotal = 0;
+            carrito.forEach(item => {
+                mensaje += `• ${item.nombre} (x${item.cantidad}) - S/ ${(item.precio * item.cantidad).toFixed(2)}\n`;
+                subtotal += item.precio * item.cantidad;
+            });
+
+            const total = subtotal * (1 - descuentoAplicado);
+            if(descuentoAplicado > 0) {
+                mensaje += `\n🏷️ *Descuento Aplicado (20%):* -S/ ${(subtotal * descuentoAplicado).toFixed(2)}`;
+            }
+            mensaje += `\n💰 *Total Neto:* S/ ${total.toFixed(2)}`;
+
+            const url = `https://api.whatsapp.com/send?phone=${TELEFONO_WHATSAPP}&text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
         }
 
-        window.onload = () => { renderProductos(); actualizarUI(); };
+        // PREGUNTAS FRECUENTES (ACCORDION)
+        function toggleFaq(id) {
+            const answer = document.getElementById(id);
+            const icon = answer.previousElementSibling.querySelector('i');
+            answer.classList.toggle('open');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // TEMPORIZADOR DE OFERTA
+        function iniciarTemporizador() {
+            let totalSegundos = 12 * 60 * 60; // 12 horas
+            setInterval(() => {
+                if (totalSegundos > 0) {
+                    totalSegundos--;
+                    const horas = Math.floor(totalSegundos / 3600);
+                    const minutos = Math.floor((totalSegundos % 3600) / 60);
+                    const segundos = totalSegundos % 60;
+
+                    document.getElementById('hours').innerText = String(horas).padStart(2, '0');
+                    document.getElementById('minutes').innerText = String(minutos).padStart(2, '0');
+                    document.getElementById('seconds').innerText = String(segundos).padStart(2, '0');
+                }
+            }, 1000);
+        }
+
+        // ROTACIÓN DE TESTIMONIOS
+        function rotarTestimonios() {
+            const textEl = document.getElementById('testimonialText');
+            const authorEl = document.getElementById('testimonialAuthor');
+            const card = document.getElementById('testimonialCard');
+
+            setInterval(() => {
+                card.classList.add('opacity-0');
+                setTimeout(() => {
+                    currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonios.length;
+                    textEl.innerText = testimonios[currentTestimonialIndex].texto;
+                    authorEl.innerText = testimonios[currentTestimonialIndex].autor;
+                    card.classList.remove('opacity-0');
+                }, 500);
+            }, 6000);
+        }
+
+        // CARGA INICIAL
+        window.onload = () => {
+            inicializarConSkeletons();
+            actualizarCarrito();
+            iniciarTemporizador();
+            rotarTestimonios();
+        };
     </script>
 </body>
 </html>

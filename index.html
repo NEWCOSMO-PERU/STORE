@@ -22,7 +22,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* Custom scrollbar for premium feel */
+        /* Barra de desplazamiento personalizada */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #111827; border-radius: 10px; }
@@ -36,7 +36,7 @@
 </head>
 <body class="bg-gray-50 text-gray-900 selection:bg-amber-500 selection:text-white">
 
-    <!-- TOP ANNOUNCEMENT BAR -->
+    <!-- ANUNCIO SUPERIOR -->
     <div class="bg-amber-500 text-black text-center text-xs font-bold tracking-widest py-2 px-4 uppercase">
         ✨ Envíos express garantizados & Garantía de satisfacción premium ✨
     </div>
@@ -53,29 +53,29 @@
                 <span class="font-light text-gray-500">New</span><span class="text-gray-900">Cosmo</span><span class="text-amber-500 font-bold">.</span>
             </a>
             
-            <!-- Buscador Estilizado -->
+            <!-- Buscador -->
             <div class="hidden md:block w-1/3 relative">
-                <input type="text" id="searchInput" placeholder="Busca la excelencia aquí..." class="w-full pl-12 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white text-sm transition-all-custom">
+                <input type="text" id="searchInput" oninput="procesarFiltrosYOrden()" placeholder="Busca la excelencia aquí..." class="w-full pl-12 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white text-sm transition-all-custom">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-gray-400 text-sm"></i>
             </div>
 
-            <!-- Acciones -->
+            <!-- Acciones de Usuario -->
             <div class="flex items-center space-x-4 sm:space-x-6">
                 <button onclick="filtrarFavoritos()" class="relative p-2 text-gray-600 hover:text-red-500 transition-colors">
                     <i class="fa-regular fa-heart text-xl sm:text-2xl"></i>
                     <span id="favCount" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white shadow-sm">0</span>
                 </button>
                 
-                <button onclick="toggleCart()" class="relative p-2 text-gray-600 hover:text-gray-900 transition-colors bg-gray-50 rounded-full hover:bg-gray-100">
+                <button onclick="toggleCart(true)" class="relative p-2 text-gray-600 hover:text-gray-900 transition-colors bg-gray-50 rounded-full hover:bg-gray-100">
                     <i class="fa-solid fa-bag-shopping text-xl sm:text-2xl"></i>
                     <span id="cartCount" class="absolute top-0 right-0 bg-amber-500 text-black text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-white shadow-sm">0</span>
                 </button>
             </div>
         </div>
         
-        <!-- Categorías Estilo Píldora -->
+        <!-- Filtros por Categoría -->
         <div class="bg-white border-t border-gray-100 py-3">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-2 overflow-x-auto text-sm no-scrollbar">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-2 overflow-x-auto text-sm">
                 <button onclick="cambiarCategoria('Todos')" class="cat-btn px-4 py-2 rounded-full font-medium transition-all-custom bg-gray-900 text-white shadow-sm" data-cat="Todos">Todos los productos</button>
                 <button onclick="cambiarCategoria('Tecnología')" class="cat-btn px-4 py-2 rounded-full font-medium text-gray-600 hover:bg-gray-100 transition-all-custom" data-cat="Tecnología">⚡ Tecnología</button>
                 <button onclick="cambiarCategoria('Moda')" class="cat-btn px-4 py-2 rounded-full font-medium text-gray-600 hover:bg-gray-100 transition-all-custom" data-cat="Moda">✨ Moda Premium</button>
@@ -84,7 +84,7 @@
         </div>
     </nav>
 
-    <!-- HERO / BANNER PREMIUM DINÁMICO -->
+    <!-- HERO / BANNER PRINCIPAL -->
     <div class="premium-gradient text-white relative overflow-hidden py-16 sm:py-24 px-4 sm:px-6 lg:px-8 shadow-inner">
         <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div class="max-w-4xl mx-auto text-center relative z-10">
@@ -98,7 +98,7 @@
                 Descubre una selección minuciosamente curada de tecnología avanzada, moda vanguardista y confort para el hogar.
             </p>
             
-            <!-- Temporizador Elegante -->
+            <!-- Temporizador de Oferta -->
             <div class="inline-flex bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl space-x-4 sm:space-x-6">
                 <div class="text-center min-w-[60px]"><span id="hours" class="text-2xl sm:text-4xl font-black text-amber-400 block">00</span><span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Horas</span></div>
                 <div class="text-center min-w-[60px]"><span id="minutes" class="text-2xl sm:text-4xl font-black text-amber-400 block">00</span><span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Minutos</span></div>
@@ -122,7 +122,7 @@
             <!-- Controles de Filtro Avanzado y Ordenamiento -->
             <div class="w-full md:w-auto flex flex-col sm:flex-row gap-3 items-center">
                 <div class="block md:hidden w-full relative">
-                    <input type="text" id="searchInputMobile" placeholder="Buscar productos..." class="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm">
+                    <input type="text" id="searchInputMobile" oninput="sincronizarYFiltrar(this.value)" placeholder="Buscar productos..." class="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400 text-sm"></i>
                 </div>
                 <div class="w-full sm:w-auto flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-200 shadow-sm">
@@ -137,13 +137,13 @@
             </div>
         </div>
         
-        <!-- Grid de Carga Inteligente / Grid Principal -->
+        <!-- Grid de Productos -->
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            <!-- Los Skeletons se autogeneran dinámicamente con JS al cargar -->
+            <!-- Cargados dinámicamente con JS -->
         </div>
     </main>
 
-    <!-- POR QUÉ ELEGIRNOS -->
+    <!-- PROPUESTA DE VALOR -->
     <section class="border-t border-gray-100 bg-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center md:text-left">
@@ -163,7 +163,7 @@
         </div>
     </section>
 
-    <!-- TESTIMONIOS PREMIUM (CON CAROUSEL INTERACTIVO AUTOMÁTICO) -->
+    <!-- TESTIMONIOS -->
     <section class="bg-gray-900 text-white py-20 relative overflow-hidden">
         <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -173,7 +173,6 @@
             </div>
             
             <div id="testimonialContainer" class="max-w-3xl mx-auto text-center h-48 flex items-center justify-center">
-                <!-- Se inyecta dinámicamente con transiciones -->
                 <div id="testimonialCard" class="transition-opacity duration-500 opacity-100">
                     <div class="text-amber-400 text-sm mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
                     <p id="testimonialText" class="text-lg sm:text-xl text-gray-300 italic max-w-2xl mx-auto leading-relaxed">"La atención y el pedido automatizado por WhatsApp es un lujo. El producto llegó impecable y súper rápido."</p>
@@ -183,7 +182,7 @@
         </div>
     </section>
 
-    <!-- PREGUNTAS FRECUENTES (FAQ) -->
+    <!-- PREGUNTAS FRECUENTES -->
     <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <h2 class="text-3xl font-extrabold text-center mb-10 tracking-tight text-gray-900">Preguntas Frecuentes</h2>
         <div class="space-y-4">
@@ -214,20 +213,20 @@
         </div>
     </footer>
 
-    <!-- INTERFAZ DEL CARRITO PREMIUM SLIDEOUT CON FORMULARIO INTEGRADO -->
+    <!-- CARRITO DE COMPRAS SLIDEOUT -->
     <div id="cartModal" class="fixed inset-y-0 right-0 w-full sm:w-[460px] bg-white shadow-2xl cart-closed transition-transform duration-300 z-50 flex flex-col border-l border-gray-100">
-        <div class="flex justify-between items-center p-6 border-b border-gray-100 bg-gray-900 text-white">
+        <div class="flex justify-between items-center p-6 border-b border-b-gray-100 bg-gray-900 text-white">
             <h2 class="text-lg font-bold tracking-tight flex items-center gap-2">
                 <i class="fa-solid fa-bag-shopping text-amber-400"></i> Bolsa de Compras
             </h2>
-            <button onclick="toggleCart()" class="text-gray-400 hover:text-white text-2xl transition-colors">&times;</button>
+            <button onclick="toggleCart(false)" class="text-gray-400 hover:text-white text-2xl transition-colors">&times;</button>
         </div>
         
-        <!-- Elementos del Carrito y Formulario (Scroll Unificado) -->
-        <div class="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar">
+        <!-- Elementos del Carrito y Formulario -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-6">
             <div id="cartItems" class="space-y-4"></div>
             
-            <!-- Formulario de Envío Nativo Premium -->
+            <!-- Formulario de Entrega -->
             <div id="checkoutForm" class="border-t border-gray-100 pt-6 space-y-4">
                 <h3 class="text-xs font-bold text-gray-900 uppercase tracking-widest flex items-center gap-2">
                     <i class="fa-solid fa-user-check text-amber-500"></i> Datos de Entrega Premium
@@ -240,7 +239,7 @@
             </div>
         </div>
 
-        <!-- Checkout Form Footer -->
+        <!-- Acciones Finales -->
         <div class="p-6 border-t border-gray-100 bg-gray-50 space-y-4 shadow-[0_-4px_24px_rgba(0,0,0,0.02)]">
             <div class="flex shadow-sm rounded-xl overflow-hidden border border-gray-200">
                 <input type="text" id="couponCode" placeholder="Ingresa un cupón" class="w-full px-4 py-2.5 bg-white text-sm focus:outline-none">
@@ -275,7 +274,7 @@
         </div>
     </div>
     
-    <!-- OVERLAY GENERAL -->
+    <!-- OVERLAY -->
     <div id="cartOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-40 transition-opacity" onclick="cerrarModales()"></div>
 
     <!-- MODAL DE VISTA RÁPIDA (QUICK VIEW) -->
@@ -289,7 +288,7 @@
                 <div>
                     <span id="qvCategory" class="text-[10px] bg-gray-900 text-white font-bold uppercase tracking-wider px-2.5 py-1 rounded-md">Categoría</span>
                     <h3 id="qvName" class="text-xl sm:text-2xl font-extrabold text-gray-900 mt-4 leading-snug">Nombre de producto</h3>
-                    <p id="qvDescription" class="text-sm text-gray-500 mt-3 font-light leading-relaxed">Esta es una descripción premium curada detallando los materiales de la más alta calidad y manufactura experta de esta pieza exclusiva de nuestro catálogo.</p>
+                    <p id="qvDescription" class="text-sm text-gray-500 mt-3 font-light leading-relaxed">Esta es una descripción detallada.</p>
                     <div class="mt-4 flex gap-2 text-xs font-semibold text-gray-600">
                         <span class="px-2.5 py-1 bg-gray-100 rounded-md">⚡ Stock Premium</span>
                         <span class="px-2.5 py-1 bg-gray-100 rounded-md">🛡️ Garantía 1 Año</span>
@@ -303,11 +302,11 @@
         </div>
     </div>
 
-    <!-- CODE SCRIPT -->
+    <!-- SCRIPT DE COMPORTAMIENTO COMPLETO -->
     <script>
         const TELEFONO_WHATSAPP = "51999999999"; 
 
-        // BANCO DE DATOS DE PASO (EMULANDO ORIGEN EXTERNO "STORE.txt")
+        // BANCO DE DATOS DE PRODUCTOS
         let productos = [];
         const dbMock = [
             { id: 1, nombre: "Auriculares Inalámbricos Pro", precio: 59.90, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80", desc: "Cancelación de ruido activa premium, sonido de alta fidelidad acústica y batería ultra duradera de hasta 40 horas." },
@@ -316,7 +315,6 @@
             { id: 4, nombre: "Gafas de Sol Premium", precio: 65.90, categoria: "Moda", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&q=80", desc: "Protección UV400 certificada de amplio espectro. Montura de acetato pulida a mano con acabados metálicos de oro." },
             { id: 5, nombre: "Lámpara Led Inteligente", precio: 44.00, categoria: "Hogar", img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&q=80", desc: "Control de voz inteligente compatible con ecosistemas modernos. Millones de colores RGB configurables y dimerización." },
             { id: 6, nombre: "Mochila Antirrobo", precio: 79.90, categoria: "Moda", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80", desc: "Cierres ocultos de seguridad balística, puerto de carga USB exterior integrado y material impermeable de alta resistencia." },
-            // NUEVOS PRODUCTOS AGREGADOS:
             { id: 7, nombre: "Teclado Mecánico RGB", precio: 120.00, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&q=80", desc: "Interruptores mecánicos táctiles de alta respuesta, retroiluminación RGB personalizable y reposamuñecas ergonómico." },
             { id: 8, nombre: "Cargador Inalámbrico Fast", precio: 39.90, categoria: "Tecnología", img: "https://images.unsplash.com/photo-1622445262465-2481c857535a?w=500&q=80", desc: "Carga rápida inalámbrica de 15W compatible con múltiples dispositivos móviles de gama alta, acabado antideslizante." },
             { id: 9, nombre: "Reloj Minimalista Cuero", precio: 110.00, categoria: "Moda", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500&q=80", desc: "Reloj analógico clásico de alta precisión con correa de cuero italiano legítimo y esfera resistente a rayaduras." },
@@ -325,7 +323,7 @@
             { id: 12, nombre: "Humidificador Ultrasónico", precio: 49.90, categoria: "Hogar", img: "https://images.unsplash.com/photo-1519183071298-a2962feb14f4?w=500&q=80", desc: "Funcionamiento ultrasilencioso, difusor de aceites esenciales aromáticos y luces LED nocturnas relajantes de 7 colores." }
         ];
 
-        // BANCO DE TESTIMONIOS DINÁMICOS
+        // TESTIMONIOS ROTATIVOS
         const testimonios = [
             { texto: '"La atención y el pedido automatizado por WhatsApp es un lujo. El producto llegó impecable y súper rápido."', autor: "- Laura M." },
             { texto: '"La calidad de los audífonos superó mis expectativas. Se nota la curación premium de los productos tecnológicos."', autor: "- Carlos G." },
@@ -338,7 +336,7 @@
         let descuentoAplicado = 0; 
         let filtroActual = 'Todos';
 
-        // EFECTO SKELETON LOADING PROFESIONAL
+        // SKELETON LOADER
         function inicializarConSkeletons() {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = '';
@@ -355,14 +353,18 @@
                     </div>
                 `;
             }
-            // Simular retraso asíncrono de base de datos
             setTimeout(() => {
                 productos = dbMock; 
                 procesarFiltrosYOrden();
             }, 1000);
         }
 
-        // RENDERIZADO CON FILTROS Y ORDENAMIENTO AVANZADO
+        // BÚSQUEDA Y FILTRADO
+        function sincronizarYFiltrar(val) {
+            document.getElementById('searchInput').value = val;
+            procesarFiltrosYOrden();
+        }
+
         function procesarFiltrosYOrden() {
             const grid = document.getElementById('productGrid');
             const busqueda = document.getElementById('searchInput').value;
@@ -371,7 +373,6 @@
 
             let productosFiltrados = [...productos];
 
-            // 1. Filtrar Categoría o Favorito
             if (filtroActual !== 'Todos' && filtroActual !== 'Favoritos') {
                 productosFiltrados = productosFiltrados.filter(p => p.categoria === filtroActual);
                 document.getElementById('seccionTitulo').innerText = `${filtroActual}`;
@@ -382,12 +383,10 @@
                 document.getElementById('seccionTitulo').innerText = `Colección Premium`;
             }
 
-            // 2. Filtrar por Búsqueda
             if (busqueda) {
                 productosFiltrados = productosFiltrados.filter(p => p.nombre.toLowerCase().includes(busqueda.toLowerCase()));
             }
 
-            // 3. Aplicar Criterio de Ordenamiento
             if (criterioOrden === 'price-asc') {
                 productosFiltrados.sort((a, b) => a.precio - b.precio);
             } else if (criterioOrden === 'price-desc') {
@@ -445,7 +444,16 @@
             procesarFiltrosYOrden();
         }
 
-        // CONTROL DE MODAL VISTA RÁPIDA (QUICK VIEW)
+        function filtrarFavoritos() {
+            filtroActual = 'Favoritos';
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-900', 'text-white', 'shadow-sm');
+                btn.classList.add('text-gray-600', 'hover:bg-gray-100');
+            });
+            procesarFiltrosYOrden();
+        }
+
+        // CONTROL DE MODALES Y VISTA RÁPIDA
         function openQuickView(id, event) {
             if(event) event.stopPropagation();
             const prod = productos.find(p => p.id === id);
@@ -488,7 +496,23 @@
             toggleCart(false);
         }
 
-        // GESTIÓN DEL CARRITO
+        // FUNCIONES DE CARRITO
+        function toggleCart(abrir) {
+            const modal = document.getElementById('cartModal');
+            const overlay = document.getElementById('cartOverlay');
+            if(abrir) {
+                modal.classList.remove('cart-closed');
+                modal.classList.add('cart-open');
+                overlay.classList.remove('hidden');
+            } else {
+                modal.classList.remove('cart-open');
+                modal.classList.add('cart-closed');
+                if(document.getElementById('quickViewModal').classList.contains('hidden')) {
+                    overlay.classList.add('hidden');
+                }
+            }
+        }
+
         function agregarAlCarrito(id, event) {
             if(event) event.stopPropagation();
             const producto = productos.find(p => p.id === id);
@@ -503,4 +527,196 @@
             toggleCart(true);
         }
 
-        // ... El resto del código JS queda exactamente igual que tu original ...
+        function cambiarCantidad(id, cambio) {
+            const item = carrito.find(item => item.id === id);
+            if (item) {
+                item.cantidad += cambio;
+                if(item.cantidad <= 0) {
+                    carrito = carrito.filter(i => i.id !== id);
+                }
+                guardarDatos();
+                actualizarCarrito();
+            }
+        }
+
+        function actualizarCarrito() {
+            const container = document.getElementById('cartItems');
+            container.innerHTML = '';
+            let subtotal = 0;
+
+            carrito.forEach(item => {
+                subtotal += item.precio * item.cantidad;
+                container.innerHTML += `
+                    <div class="flex items-center gap-4 bg-gray-50 p-3.5 rounded-xl border border-gray-100">
+                        <img src="${item.img}" class="w-16 h-16 object-cover rounded-lg border border-gray-200">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-sm text-gray-900 line-clamp-1">${item.nombre}</h4>
+                            <p class="text-xs text-amber-600 font-semibold mt-0.5">S/ ${item.precio.toFixed(2)}</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="cambiarCantidad(${item.id}, -1)" class="w-6 h-6 bg-white border border-gray-200 text-gray-600 rounded flex items-center justify-center font-bold text-xs hover:bg-gray-100">-</button>
+                                <span class="text-xs font-bold text-gray-800">${item.cantidad}</span>
+                                <button onclick="cambiarCantidad(${item.id}, 1)" class="w-6 h-6 bg-white border border-gray-200 text-gray-600 rounded flex items-center justify-center font-bold text-xs hover:bg-gray-100">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            if(carrito.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fa-solid fa-basket-shopping text-3xl mb-2 block"></i>
+                        Tu bolsa de compras está vacía.
+                    </div>
+                `;
+            }
+
+            const totalConDescuento = subtotal * (1 - descuentoAplicado);
+            document.getElementById('cartTotal').innerText = `S/ ${totalConDescuento.toFixed(2)}`;
+            actualizarContadores();
+        }
+
+        // PROCESAR CUPONES
+        function applyCoupon() {
+            const code = document.getElementById('couponCode').value.trim().toUpperCase();
+            const msg = document.getElementById('couponMessage');
+            
+            if(code === 'COSMO20') {
+                descuentoAplicado = 0.20;
+                msg.innerText = "¡Cupón COSMO20 aplicado! 20% de descuento.";
+                msg.className = "text-xs font-semibold text-green-600 px-2";
+            } else {
+                descuentoAplicado = 0;
+                msg.innerText = "Cupón inválido.";
+                msg.className = "text-xs font-semibold text-red-500 px-2";
+            }
+            msg.classList.remove('hidden');
+            actualizarCarrito();
+        }
+
+        // CONTROL DE FAVORITOS
+        function toggleFavorito(id, event) {
+            if(event) event.stopPropagation();
+            if(favoritos.includes(id)) {
+                favoritos = favoritos.filter(fId => fId !== id);
+            } else {
+                favoritos.push(id);
+            }
+            guardarDatos();
+            procesarFiltrosYOrden();
+        }
+
+        // NÚMERO DE ARTÍCULOS EN INTERFAZ
+        function actualizarContadores() {
+            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            document.getElementById('cartCount').innerText = totalItems;
+            document.getElementById('favCount').innerText = favoritos.length;
+        }
+
+        function guardarDatos() {
+            localStorage.setItem('newcosmo_cart', JSON.stringify(carrito));
+            localStorage.setItem('newcosmo_favs', JSON.stringify(favoritos));
+        }
+
+        // GESTOR DE MÉTODO DE PAGO
+        function handlePaymentChange() {
+            const method = document.getElementById('paymentMethod').value;
+            const qrContainer = document.getElementById('qrContainer');
+            if (method.includes('QR')) {
+                qrContainer.classList.remove('hidden');
+            } else {
+                qrContainer.classList.add('hidden');
+            }
+        }
+
+        // ENVIAR WHATSAPP
+        function enviarWhatsApp() {
+            const nombre = document.getElementById('custName').value.trim();
+            const telefono = document.getElementById('custPhone').value.trim();
+            const direccion = document.getElementById('custAddress').value.trim();
+            const metodoPago = document.getElementById('paymentMethod').value;
+
+            if(!nombre || !telefono || !direccion) {
+                alert("Por favor completa los datos de entrega.");
+                return;
+            }
+            if(carrito.length === 0) {
+                alert("Tu bolsa de compras está vacía.");
+                return;
+            }
+
+            let mensaje = `🛍️ *NUEVA ORDEN - NEWCOSMO STORE* 🛍️\n\n`;
+            mensaje += `👤 *Cliente:* ${nombre}\n`;
+            mensaje += `📞 *Teléfono:* ${telefono}\n`;
+            mensaje += `📍 *Dirección:* ${direccion}\n`;
+            mensaje += `💳 *Método de Pago:* ${metodoPago}\n\n`;
+            mensaje += `📋 *Detalle del Pedido:*\n`;
+
+            let subtotal = 0;
+            carrito.forEach(item => {
+                mensaje += `• ${item.nombre} (x${item.cantidad}) - S/ ${(item.precio * item.cantidad).toFixed(2)}\n`;
+                subtotal += item.precio * item.cantidad;
+            });
+
+            const total = subtotal * (1 - descuentoAplicado);
+            if(descuentoAplicado > 0) {
+                mensaje += `\n🏷️ *Descuento Aplicado (20%):* -S/ ${(subtotal * descuentoAplicado).toFixed(2)}`;
+            }
+            mensaje += `\n💰 *Total Neto:* S/ ${total.toFixed(2)}`;
+
+            const url = `https://api.whatsapp.com/send?phone=${TELEFONO_WHATSAPP}&text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+
+        // PREGUNTAS FRECUENTES (ACCORDION)
+        function toggleFaq(id) {
+            const answer = document.getElementById(id);
+            const icon = answer.previousElementSibling.querySelector('i');
+            answer.classList.toggle('open');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // TEMPORIZADOR DE OFERTA
+        function iniciarTemporizador() {
+            let totalSegundos = 12 * 60 * 60; // 12 horas
+            setInterval(() => {
+                if (totalSegundos > 0) {
+                    totalSegundos--;
+                    const horas = Math.floor(totalSegundos / 3600);
+                    const minutos = Math.floor((totalSegundos % 3600) / 60);
+                    const segundos = totalSegundos % 60;
+
+                    document.getElementById('hours').innerText = String(horas).padStart(2, '0');
+                    document.getElementById('minutes').innerText = String(minutos).padStart(2, '0');
+                    document.getElementById('seconds').innerText = String(segundos).padStart(2, '0');
+                }
+            }, 1000);
+        }
+
+        // ROTACIÓN DE TESTIMONIOS
+        function rotarTestimonios() {
+            const textEl = document.getElementById('testimonialText');
+            const authorEl = document.getElementById('testimonialAuthor');
+            const card = document.getElementById('testimonialCard');
+
+            setInterval(() => {
+                card.classList.add('opacity-0');
+                setTimeout(() => {
+                    currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonios.length;
+                    textEl.innerText = testimonios[currentTestimonialIndex].texto;
+                    authorEl.innerText = testimonios[currentTestimonialIndex].autor;
+                    card.classList.remove('opacity-0');
+                }, 500);
+            }, 6000);
+        }
+
+        // CARGA INICIAL
+        window.onload = () => {
+            inicializarConSkeletons();
+            actualizarCarrito();
+            iniciarTemporizador();
+            rotarTestimonios();
+        };
+    </script>
+</body>
+</html>

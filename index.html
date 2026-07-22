@@ -125,35 +125,8 @@
         </div>
     </nav>
 
-    <!-- HERO / BANNER PRINCIPAL -->
-    <div class="premium-gradient text-white relative overflow-hidden py-16 sm:py-24 px-4 sm:px-6 lg:px-8 shadow-inner">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-4 uppercase tracking-widest">
-                Exclusivo en Línea
-            </span>
-            <h1 class="text-4xl sm:text-6xl font-extrabold mb-4 tracking-tight leading-none">
-                Eleva tu Estilo de Vida con <span class="gold-gradient-text">Newcosmo Store</span>
-            </h1>
-            <p class="text-gray-400 text-base sm:text-xl max-w-xl mx-auto mb-8 font-light">
-                Descubre una selección minuciosamente curada de tecnología avanzada, moda vanguardista y confort para el hogar.
-            </p>
-            
-            <!-- Temporizador de Oferta -->
-            <div class="inline-flex bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10 shadow-xl space-x-4 sm:space-x-6">
-                <div class="text-center min-w-[60px]"><span id="hours" class="text-2xl sm:text-4xl font-black text-amber-400 block">00</span><span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Horas</span></div>
-                <div class="text-center min-w-[60px]"><span id="minutes" class="text-2xl sm:text-4xl font-black text-amber-400 block">00</span><span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Minutos</span></div>
-                <div class="text-center min-w-[60px]"><span id="seconds" class="text-2xl sm:text-4xl font-black text-amber-400 block">00</span><span class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Segundos</span></div>
-            </div>
-            
-            <p class="mt-4 text-xs text-gray-400 font-medium">
-                Usa el cupón <span class="bg-amber-400 text-black px-2 py-0.5 rounded font-bold mx-1">COSMO20</span> para un <span class="text-amber-400 font-bold">20% OFF</span> adicional.
-            </p>
-        </div>
-    </div>
-
     <!-- SECCIÓN DE PRODUCTOS -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
             <div>
                 <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900 tracking-tight" id="seccionTitulo">Todos los Productos</h2>
@@ -728,23 +701,6 @@
             icon.classList.toggle('rotate-180');
         }
 
-        // TEMPORIZADOR DE OFERTA
-        function iniciarTemporizador() {
-            let totalSegundos = 12 * 60 * 60; // 12 horas
-            setInterval(() => {
-                if (totalSegundos > 0) {
-                    totalSegundos--;
-                    const horas = Math.floor(totalSegundos / 3600);
-                    const minutos = Math.floor((totalSegundos % 3600) / 60);
-                    const segundos = totalSegundos % 60;
-
-                    document.getElementById('hours').innerText = String(horas).padStart(2, '0');
-                    document.getElementById('minutes').innerText = String(minutos).padStart(2, '0');
-                    document.getElementById('seconds').innerText = String(segundos).padStart(2, '0');
-                }
-            }, 1000);
-        }
-
         // ROTACIÓN DE TESTIMONIOS
         function rotarTestimonios() {
             const textEl = document.getElementById('testimonialText');
@@ -766,7 +722,6 @@
         window.onload = () => {
             inicializarConSkeletons();
             actualizarCarrito();
-            iniciarTemporizador();
             rotarTestimonios();
         };
     </script>

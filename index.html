@@ -75,6 +75,7 @@
 </head>
 <body class="bg-gray-50 text-gray-900 selection:bg-brand-500 selection:text-white overflow-hidden">
 
+    <!-- SPLASH SCREEN CON EL LOGO MÁS GRANDE -->
     <div id="splashScreen">
         <div class="text-center space-y-6 flex flex-col items-center justify-center">
             <img src="logo.png" alt="Logo Newcosmo" class="w-48 h-48 sm:w-56 sm:h-56 object-contain mb-2 animate-pulse">
@@ -82,9 +83,11 @@
         </div>
     </div>
 
+    <!-- NAVBAR PREMIUM CON EL LOGO PNG -->
     <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-gray-100 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             
+            <!-- Logo Principal -->
             <a href="#" onclick="cambiarCategoria('Todos')" class="flex items-center gap-3 group">
                 <div class="w-11 h-11 rounded-xl overflow-hidden shadow-md border border-brand-500/30 group-hover:scale-105 transition-transform duration-300">
                     <img src="logo.png" alt="Logo" class="w-full h-full object-cover">
@@ -97,11 +100,13 @@
                 </div>
             </a>
             
+            <!-- Buscador -->
             <div class="hidden md:block w-1/3 relative">
                 <input type="text" id="searchInput" oninput="procesarFiltrosYOrden()" placeholder="Busca la excelencia aquí..." class="w-full pl-12 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white text-sm text-gray-900 placeholder-gray-400 transition-all-custom">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-gray-400 text-sm"></i>
             </div>
 
+            <!-- Acciones de Usuario -->
             <div class="flex items-center space-x-4 sm:space-x-6">
                 <button onclick="filtrarFavoritos()" class="relative p-2 text-gray-700 hover:text-red-500 transition-colors">
                     <i class="fa-regular fa-heart text-xl sm:text-2xl"></i>
@@ -115,6 +120,7 @@
             </div>
         </div>
         
+        <!-- Filtros por Categoría -->
         <div class="bg-white border-t border-gray-100 py-3">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-2 overflow-x-auto text-sm">
                 <button onclick="cambiarCategoria('Todos')" class="cat-btn px-4 py-2 rounded-full font-semibold transition-all-custom bg-gray-950 text-white shadow-sm" data-cat="Todos">Todos los productos</button>
@@ -125,6 +131,7 @@
         </div>
     </nav>
 
+    <!-- SECCIÓN DE PRODUCTOS -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
             <div>
@@ -132,6 +139,7 @@
                 <div class="h-1.5 w-14 bg-brand-500 mt-2 rounded-full"></div>
             </div>
             
+            <!-- Controles de Filtro Avanzado y Ordenamiento -->
             <div class="w-full md:w-auto flex flex-col sm:flex-row gap-3 items-center">
                 <div class="block md:hidden w-full relative">
                     <input type="text" id="searchInputMobile" oninput="sincronizarYFiltrar(this.value)" placeholder="Buscar productos..." class="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm text-gray-900">
@@ -149,10 +157,13 @@
             </div>
         </div>
         
+        <!-- Grid de Productos -->
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            </div>
+            <!-- Cargados dinámicamente con JS -->
+        </div>
     </main>
 
+    <!-- PROPUESTA DE VALOR -->
     <section class="border-t border-gray-100 bg-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center md:text-left">
@@ -172,24 +183,7 @@
         </div>
     </section>
 
-    <section class="bg-gray-950 text-white py-20 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#e3a828_1px,transparent_1px)] [background-size:24px_24px]"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-12">
-                <span class="text-xs font-extrabold tracking-widest text-brand-400 uppercase">Experiencias Reales</span>
-                <h2 class="text-3xl sm:text-4xl font-black mt-2 tracking-tight text-white">Lo que opinan nuestros selectos clientes</h2>
-            </div>
-            
-            <div id="testimonialContainer" class="max-w-3xl mx-auto text-center h-48 flex items-center justify-center">
-                <div id="testimonialCard" class="transition-opacity duration-500 opacity-100">
-                    <div class="text-brand-400 text-base mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                    <p id="testimonialText" class="text-lg sm:text-xl text-gray-100 italic max-w-2xl mx-auto leading-relaxed font-normal">"La atención y el pedido automatizado por WhatsApp es un lujo. El producto llegó impecable y súper rápido."</p>
-                    <p id="testimonialAuthor" class="mt-6 font-extrabold text-brand-400 text-sm tracking-wider uppercase">- Laura M.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- PREGUNTAS FRECUENTES -->
     <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <h2 class="text-3xl font-black text-center mb-10 tracking-tight text-black">Preguntas Frecuentes</h2>
         <div class="space-y-4">
@@ -212,36 +206,45 @@
         </div>
     </section>
 
-    <footer class="bg-gray-950 text-gray-300 py-12 border-t border-gray-900 text-center text-sm">
+    <!-- FOOTER MÁS BRILLANTE CON LOGO Y BORDES DESTACADOS -->
+    <footer class="bg-gray-900 text-gray-100 py-14 border-t-2 border-brand-500 text-center text-sm shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 space-y-8">
             <div class="flex flex-col items-center justify-center gap-3">
-                <img src="logo.png" alt="Newcosmo Logo Footer" class="w-16 h-16 object-contain rounded-xl shadow-lg border border-brand-500/20">
-                <div class="text-white font-black text-xl tracking-tight">Newcosmo<span class="text-brand-500"> Store</span>.</div>
+                <img src="logo.png" alt="Newcosmo Logo Footer" class="w-18 h-18 object-contain rounded-2xl shadow-xl border-2 border-brand-400 bg-gray-950 p-1">
+                <div class="text-white font-black text-2xl tracking-tight">Newcosmo<span class="text-brand-400"> Store</span>.</div>
             </div>
             
+            <!-- Secciones con Íconos Más Brillantes -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
-                <a href="https://newcosmo-peru.github.io/MANUALES/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-2 p-3.5 rounded-xl bg-gray-900/80 hover:bg-gray-900 hover:text-brand-400 transition-all border border-gray-800 group">
-                    <i class="fa-solid fa-book-open text-xl text-brand-500 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-xs font-bold text-gray-200 group-hover:text-brand-400">Manuales</span>
+                <a href="https://newcosmo-peru.github.io/MANUALES/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-2 p-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-white hover:text-brand-300 transition-all border border-gray-700 hover:border-brand-400 shadow-md group">
+                    <i class="fa-solid fa-book-open text-2xl text-brand-400 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-xs font-extrabold text-white group-hover:text-brand-300">Manuales</span>
                 </a>
-                <a href="https://newcosmo-peru.github.io/SOLUCIONES/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-2 p-3.5 rounded-xl bg-gray-900/80 hover:bg-gray-900 hover:text-brand-400 transition-all border border-gray-800 group">
-                    <i class="fa-solid fa-wrench text-xl text-brand-500 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-xs font-bold text-gray-200 group-hover:text-brand-400">Soluciones</span>
+                <a href="https://newcosmo-peru.github.io/SOLUCIONES/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-2 p-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-white hover:text-brand-300 transition-all border border-gray-700 hover:border-brand-400 shadow-md group">
+                    <i class="fa-solid fa-wrench text-2xl text-brand-400 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-xs font-extrabold text-white group-hover:text-brand-300">Soluciones</span>
                 </a>
-                <a href="https://newcosmo-peru.github.io/TONOS/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-2 p-3.5 rounded-xl bg-gray-900/80 hover:bg-gray-900 hover:text-brand-400 transition-all border border-gray-800 group">
-                    <i class="fa-solid fa-music text-xl text-brand-500 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-xs font-bold text-gray-200 group-hover:text-brand-400">Tonos</span>
+                <a href="https://newcosmo-peru.github.io/TONOS/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-2 p-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-white hover:text-brand-300 transition-all border border-gray-700 hover:border-brand-400 shadow-md group">
+                    <i class="fa-solid fa-music text-2xl text-brand-400 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-xs font-extrabold text-white group-hover:text-brand-300">Tonos</span>
                 </a>
-                <a href="https://newcosmo-peru.github.io/WALLPAPERS/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-2 p-3.5 rounded-xl bg-gray-900/80 hover:bg-gray-900 hover:text-brand-400 transition-all border border-gray-800 group">
-                    <i class="fa-solid fa-image text-xl text-brand-500 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-xs font-bold text-gray-200 group-hover:text-brand-400">Wallpapers</span>
+                <a href="https://newcosmo-peru.github.io/WALLPAPERS/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center gap-2 p-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-white hover:text-brand-300 transition-all border border-gray-700 hover:border-brand-400 shadow-md group">
+                    <i class="fa-solid fa-image text-2xl text-brand-400 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-xs font-extrabold text-white group-hover:text-brand-300">Wallpapers</span>
                 </a>
             </div>
 
-            <p class="text-xs text-gray-400 font-medium">&copy; 2026 Newcosmo Store. Desarrollado con los más altos estándares de excelencia.</p>
+            <p class="text-xs text-gray-300 font-semibold tracking-wide">&copy; 2026 Newcosmo Store. Desarrollado con los más altos estándares de excelencia.</p>
         </div>
     </footer>
 
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%20Newcosmo%20Store,%20quisiera%20recibir%20informaci%C3%B3n" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 left-6 z-40 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 group animate-bounce" aria-label="Contacto WhatsApp">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+        <span class="absolute left-16 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg pointer-events-none">¡Escríbenos directamente!</span>
+    </a>
+
+    <!-- CARRITO DE COMPRAS SLIDEOUT -->
     <div id="cartModal" class="fixed inset-y-0 right-0 w-full sm:w-[460px] bg-white shadow-2xl cart-closed transition-transform duration-300 z-50 flex flex-col border-l border-gray-100">
         <div class="flex justify-between items-center p-6 border-b border-b-gray-100 bg-gray-950 text-white">
             <h2 class="text-lg font-bold tracking-tight flex items-center gap-2">
@@ -250,9 +253,11 @@
             <button onclick="toggleCart(false)" class="text-gray-400 hover:text-white text-2xl transition-colors">&times;</button>
         </div>
         
+        <!-- Elementos del Carrito y Formulario -->
         <div class="flex-1 overflow-y-auto p-6 space-y-6">
             <div id="cartItems" class="space-y-4"></div>
             
+            <!-- Formulario de Entrega -->
             <div id="checkoutForm" class="border-t border-gray-100 pt-6 space-y-4">
                 <h3 class="text-xs font-extrabold text-black uppercase tracking-widest flex items-center gap-2">
                     <i class="fa-solid fa-user-check text-brand-500"></i> Datos de Entrega Premium
@@ -265,6 +270,7 @@
             </div>
         </div>
 
+        <!-- Acciones Finales -->
         <div class="p-6 border-t border-gray-100 bg-gray-50 space-y-4 shadow-[0_-4px_24px_rgba(0,0,0,0.02)]">
             <div class="flex shadow-sm rounded-xl overflow-hidden border border-gray-200">
                 <input type="text" id="couponCode" placeholder="Ingresa un cupón" class="w-full px-4 py-2.5 bg-white text-sm text-gray-900 focus:outline-none">
@@ -299,8 +305,10 @@
         </div>
     </div>
     
+    <!-- OVERLAY -->
     <div id="cartOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-40 transition-opacity" onclick="cerrarModales()"></div>
 
+    <!-- MODAL DE VISTA RÁPIDA (QUICK VIEW) -->
     <div id="quickViewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6">
         <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-gray-100 transform scale-95 opacity-0 transition-all duration-300 flex flex-col md:flex-row relative">
             <button onclick="closeQuickView()" class="absolute top-4 right-4 bg-gray-950 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md hover:bg-brand-500 hover:text-black z-10">&times;</button>
@@ -325,6 +333,7 @@
         </div>
     </div>
 
+    <!-- SCRIPT DE COMPORTAMIENTO COMPLETO -->
     <script>
         const TELEFONO_WHATSAPP = "51999999999"; 
 
@@ -344,14 +353,6 @@
             { id: 11, nombre: "Cafetera de Goteo Pro", precio: 135.00, categoria: "Hogar", img: "https://images.unsplash.com/photo-1517256064527-09c53b2d0bc6?w=500&q=80", desc: "Filtro permanente integrado, temporizador programable de inicio y jarra de vidrio templado de gran capacidad." },
             { id: 12, nombre: "Humidificador Ultrasónico", precio: 49.90, categoria: "Hogar", img: "https://images.unsplash.com/photo-1519183071298-a2962feb14f4?w=500&q=80", desc: "Funcionamiento ultrasilencioso, difusor de aceites esenciales aromáticos y luces LED nocturnas relajantes de 7 colores." }
         ];
-
-        // TESTIMONIOS ROTATIVOS
-        const testimonios = [
-            { texto: '"La atención y el pedido automatizado por WhatsApp es un lujo. El producto llegó impecable y súper rápido."', autor: "- Laura M." },
-            { texto: '"La calidad de los audífonos superó mis expectativas. Se nota la curación premium de los productos tecnológicos."', autor: "- Carlos G." },
-            { texto: '"Interfaz sumamente limpia en mi teléfono móvil, es un verdadero placer comprar en esta tienda web."', autor: "- Andrea V." }
-        ];
-        let currentTestimonialIndex = 0;
 
         let carrito = JSON.parse(localStorage.getItem('newcosmo_cart')) || [];
         let favoritos = JSON.parse(localStorage.getItem('newcosmo_favs')) || [];
@@ -707,28 +708,10 @@
             icon.classList.toggle('rotate-180');
         }
 
-        // ROTACIÓN DE TESTIMONIOS
-        function rotarTestimonios() {
-            const textEl = document.getElementById('testimonialText');
-            const authorEl = document.getElementById('testimonialAuthor');
-            const card = document.getElementById('testimonialCard');
-
-            setInterval(() => {
-                card.classList.add('opacity-0');
-                setTimeout(() => {
-                    currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonios.length;
-                    textEl.innerText = testimonios[currentTestimonialIndex].texto;
-                    authorEl.innerText = testimonios[currentTestimonialIndex].autor;
-                    card.classList.remove('opacity-0');
-                }, 500);
-            }, 6000);
-        }
-
         // CARGA INICIAL
         window.onload = () => {
             inicializarConSkeletons();
             actualizarCarrito();
-            rotarTestimonios();
         };
     </script>
 </body>

@@ -206,11 +206,13 @@
         </div>
     </section>
 
-    <!-- FOOTER MÁS BRILLANTE CON LOGO Y BORDES DESTACADOS -->
+    <!-- FOOTER MÁS BRILLANTE CON LOGO ORIGINAL -->
     <footer class="bg-gray-900 text-gray-100 py-14 border-t-2 border-brand-500 text-center text-sm shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 space-y-8">
             <div class="flex flex-col items-center justify-center gap-3">
-                <img src="logo.png" alt="Newcosmo Logo Footer" class="w-18 h-18 object-contain rounded-2xl shadow-xl border-2 border-brand-400 bg-gray-950 p-1">
+                <div class="w-11 h-11 rounded-xl overflow-hidden shadow-md border border-brand-400 bg-gray-950 p-0.5">
+                    <img src="logo.png" alt="Newcosmo Logo Footer" class="w-full h-full object-cover rounded-lg">
+                </div>
                 <div class="text-white font-black text-2xl tracking-tight">Newcosmo<span class="text-brand-400"> Store</span>.</div>
             </div>
             
@@ -238,10 +240,10 @@
         </div>
     </footer>
 
-    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
-    <a href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%20Newcosmo%20Store,%20quisiera%20recibir%20informaci%C3%B3n" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 left-6 z-40 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 group animate-bounce" aria-label="Contacto WhatsApp">
+    <!-- BOTÓN FLOTANTE DE WHATSAPP AL LADO DERECHO -->
+    <a href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%20Newcosmo%20Store,%20quisiera%20recibir%20informaci%C3%B3n" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 group animate-bounce" aria-label="Contacto WhatsApp">
         <i class="fa-brands fa-whatsapp text-3xl"></i>
-        <span class="absolute left-16 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg pointer-events-none">¡Escríbenos directamente!</span>
+        <span class="absolute right-16 bg-gray-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg pointer-events-none">¡Escríbenos directamente!</span>
     </a>
 
     <!-- CARRITO DE COMPRAS SLIDEOUT -->
